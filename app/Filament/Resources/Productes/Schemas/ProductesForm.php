@@ -57,10 +57,7 @@ class ProductesForm
                 RichEditor::make('description')
                     ->label('الوصف')
                     ->columnSpanFull(),
-TextInput::make('slug')
-    ->required()
-    ->unique(ignoreRecord: true)
-   ,
+
                 FileUpload::make('images')
                     ->label('صور المنتج')
                     ->multiple()

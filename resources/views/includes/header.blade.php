@@ -4,7 +4,7 @@
         <!-- Logo -->
         <a class="navbar-brand fw-bold text-primary fs-3" href="{{ route('home') }}">
             <i class="bi bi-lightning-charge-fill ms-2"></i>
-            متولي الكتريك
+        أوتاد مصر
         </a>
 
         <!-- Mobile -->

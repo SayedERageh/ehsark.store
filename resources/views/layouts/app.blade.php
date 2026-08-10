@@ -9,7 +9,7 @@
   <meta name="keywords" content="@yield('keywords')">
 
   <!-- Favicons -->
-  <link href="{{asset('assets/img/favicon.png')}}" rel="icon">
+  <link href="{{asset('assets/img/favicon.jpg')}}" rel="icon">
   <link href="{{asset('assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
 <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Fonts -->
@@ -22,7 +22,7 @@
 <link href="{{asset('assets/vendor/aos/aos.css')}}" rel="stylesheet">
 <link href="{{asset('assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
 <link href="{{asset('assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <!-- Main CSS File -->
 <link href="{{asset('assets/css/main.css')}}" rel="stylesheet">
 
@@ -33,12 +33,12 @@
 <div class="floating-buttons">
 
   <!-- WhatsApp -->
-  <a href="https://wa.me/201044946388" target="_blank" class="float-btn whatsapp">
+  <a href="https://wa.me/201111402160" target="_blank" class="float-btn whatsapp">
     <i class="bi bi-whatsapp"></i>
   </a>
 
   <!-- Call -->
-  <a href="tel:01044946388" class="float-btn call">
+  <a href="tel:01111402160" class="float-btn call">
     <i class="bi bi-telephone-fill"></i>
   </a>
 
@@ -129,7 +129,7 @@
   <script src="{{asset('assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
   <script src="{{asset('assets/vendor/imagesloaded/imagesloaded.pkgd.min.js')}}"></script>
   <script src="{{asset('assets/vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <!-- Main JS File -->
   <script src="{{asset('assets/js/main.js')}}"></script>
 <script src="{{ asset('assets/js/cart.js') }}"></script>

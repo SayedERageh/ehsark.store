@@ -1,77 +1,125 @@
-<div class="col-lg-3 col-md-4 col-sm-6">
+<div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
 
-    <div class="card border-0 shadow-sm rounded-4 h-100">
+    <a href="{{ route('shop.show',$product->id) }}" class="text-decoration-none">
 
-        <a href="{{ route('shop.show',$product->id) }}">
+        <div class="position-relative">
 
-            <img
-                src="{{ asset('uploads/'.$product->images[0]) }}"
-                class="card-img-top"
-                style="height:250px;object-fit:cover;">
+            @if($product->images && count($product->images))
 
-        </a>
+                <img
+                    src="{{ asset('uploads/'.$product->images[0]) }}"
+                    class="card-img-top"
+                    style="height:250px;object-fit:cover;"
+                    alt="{{ $product->name }}">
 
-        <div class="card-body">
+            @else
+
+                <div
+                    style="height:250px;background:#f5f8fa;"
+                    class="d-flex align-items-center justify-content-center">
+
+                    <i class="bi bi-droplet-half text-primary fs-1"></i>
+
+                </div>
+
+            @endif
 
             @if($product->is_new)
 
-                <span class="badge bg-success mb-2">
+                <span
+                    class="badge bg-success position-absolute top-0 start-0 m-3">
                     جديد
                 </span>
 
             @endif
 
-            <h6 class="fw-bold">
+            @if($product->is_featured)
 
-                {{ $product->name }}
-
-            </h6>
-
-            @if($product->sale_price)
-
-                <h5 class="text-danger">
-
-                    {{ number_format($product->sale_price,2) }} ج.م
-
-                </h5>
-
-                <small>
-
-                    <del>
-
-                        {{ number_format($product->price,2) }}
-
-                    </del>
-
-                </small>
-
-            @else
-
-                <h5>
-
-                    {{ number_format($product->price,2) }} ج.م
-
-                </h5>
+                <span
+                    class="badge bg-warning text-dark position-absolute top-0 end-0 m-3">
+                    مميز
+                </span>
 
             @endif
 
         </div>
 
-        <div class="card-footer bg-white border-0">
-<button
-    class="btn btn-primary w-100 add-to-cart"
-    data-id="{{ $product->id }}">
+    </a>
 
-    <i class="fas fa-shopping-cart"></i>
+    <div class="card-body">
 
-    أضف إلى السلة
+        @if($product->category)
 
-</button>
+            <small class="text-muted">
+                {{ $product->category->name }}
+            </small>
+
+        @endif
+
+        <h6 class="fw-bold mt-2">
+
+            {{ $product->name }}
+
+        </h6>
+
+        @if($product->sale_price)
+
+            <h5 class="text-danger fw-bold">
+
+                {{ number_format($product->sale_price,2) }} ج.م
+
+            </h5>
+
+            <small class="text-muted">
+
+                <del>
+
+                    {{ number_format($product->price,2) }} ج.م
+
+                </del>
+
+            </small>
+
+        @else
+
+            <h5 class="fw-bold">
+
+                {{ number_format($product->price,2) }} ج.م
+
+            </h5>
+
+        @endif
+
+    </div>
+
+    <div class="card-footer bg-white border-0 pb-3">
+
+        <div class="d-flex gap-2">
+
+            <form
+                action="{{ route('cart.add',$product->id) }}"
+                method="POST"
+                class="flex-grow-1">
+
+                @csrf
+
+                <button
+                    type="submit"
+                    class="btn btn-primary w-100">
+
+                    <i class="fas fa-shopping-cart"></i>
+
+                    أضف إلى السلة
+
+                </button>
+
+            </form>
+
             <a
                 href="{{ route('shop.show',$product->id) }}"
-                class="btn btn-outline-dark w-100">
+                class="btn btn-outline-primary">
 
-                عرض المنتج
+                <i class="bi bi-eye"></i>
 
             </a>
 
@@ -80,19 +128,3 @@
     </div>
 
 </div>
-
-<Script>
-    function loadMiniCart(){
-
-    fetch('/mini-cart')
-
-    .then(res=>res.json())
-
-    .then(data=>{
-
-        console.log(data);
-
-    });
-
-}
-</Script>
