@@ -1,58 +1,107 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm" dir="rtl">
+<nav class="navbar navbar-expand-lg bg-white sticky-top main-navbar" dir="rtl">
     <div class="container">
 
-        <!-- Logo -->
-        <a class="navbar-brand fw-bold text-primary fs-3" href="{{ route('home') }}">
-            <i class="bi bi-lightning-charge-fill ms-2"></i>
-        أوتاد مصر
+        {{-- اسم الموقع --}}
+        <a class="navbar-brand site-brand"
+           href="{{ route('home') }}">
+
+            {{ $settings->site_name ?? 'أوتاد مصر' }}
+
         </a>
 
-        <!-- Mobile -->
-        <button class="navbar-toggler" type="button"
+
+        {{-- Mobile Menu --}}
+        <button class="navbar-toggler"
+                type="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#navbarNav">
+                data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar"
+                aria-expanded="false"
+                aria-label="فتح القائمة">
+
             <span class="navbar-toggler-icon"></span>
+
         </button>
 
-        <!-- Menu -->
-        <div class="collapse navbar-collapse" id="navbarNav">
 
-            <ul class="navbar-nav mx-auto align-items-lg-center gap-lg-2">
+        {{-- Navbar Content --}}
+        <div class="collapse navbar-collapse" id="mainNavbar">
 
+
+            {{-- Links --}}
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+
+
+                {{-- الرئيسية --}}
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}"
-                       href="{{ route('home') }}">
+                    <a href="{{ route('home') }}"
+                       class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">
+
                         الرئيسية
+
                     </a>
                 </li>
 
+
+                {{-- من نحن --}}
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}"
-                       href="{{ route('about') }}">
+                    <a href="{{ route('about') }}"
+                       class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}">
+
                         من نحن
+
                     </a>
                 </li>
 
-                <li class="nav-item dropdown">
 
-                    <a class="nav-link dropdown-toggle {{ request()->routeIs('services.*') ? 'active' : '' }}"
-                       href="#"
-                       data-bs-toggle="dropdown">
+                {{-- المنتجات --}}
+                <li class="nav-item dropdown products-dropdown">
 
-                        الخدمات
+                    <a href="{{ route('shop.index') }}"
+                       class="nav-link dropdown-toggle {{ request()->routeIs('shop.*') ? 'active' : '' }}"
+                       role="button"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+
+                        المنتجات
 
                     </a>
 
-                    <ul class="dropdown-menu text-end">
 
-                        @foreach($services ?? [] as $service)
+                    {{-- Dropdown --}}
+                    <ul class="dropdown-menu products-menu text-end">
+
+                        {{-- كل المنتجات --}}
+                        <li>
+
+                            <a class="dropdown-item"
+                               href="{{ route('shop.index') }}">
+
+                                <i class="bi bi-grid-3x3-gap ms-2"></i>
+
+                                كل المنتجات
+
+                            </a>
+
+                        </li>
+
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+
+                        {{-- الأقسام --}}
+                        @foreach($productCategories ?? [] as $category)
 
                             <li>
 
                                 <a class="dropdown-item"
-                                   href="{{ route('services.show',$service->slug) }}">
+                                   href="{{ route('shop.category', $category->id) }}">
 
-                                    {{ $service->title }}
+                                    <i class="bi bi-chevron-left ms-2"></i>
+
+                                    {{ $category->name }}
 
                                 </a>
 
@@ -64,222 +113,474 @@
 
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('shop.*') ? 'active' : '' }}"
-                       href="{{ route('shop.index') }}">
-                        المنتجات
-                    </a>
-                </li>
 
+                {{-- المقالات --}}
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('posts.*') ? 'active' : '' }}"
-                       href="{{ route('posts.index') }}">
+
+                    <a href="{{ route('posts.index') }}"
+                       class="nav-link {{ request()->routeIs('posts.*') ? 'active' : '' }}">
+
                         المقالات
+
                     </a>
+
                 </li>
 
+
+                {{-- تواصل معنا --}}
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}"
-                       href="{{ route('contact') }}">
+
+                    <a href="{{ route('contact') }}"
+                       class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">
+
                         تواصل معنا
+
                     </a>
+
                 </li>
 
             </ul>
 
-            <!-- Cart -->
 
-            <button class="btn cart-btn position-relative"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#cartOffcanvas">
+            {{-- الاتصال والواتساب --}}
+            <div class="navbar-contact d-flex align-items-center gap-2">
 
-                <i class="bi bi-cart3"></i>
 
-              <span id="cart-badge"
-      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger {{ $cartCount ? '' : 'd-none' }}">
+                {{-- الاتصال --}}
+                @if(!empty($settings?->phone))
 
-    {{ $cartCount }}
+                    <a
+                        href="tel:{{ preg_replace('/[^0-9+]/', '', $settings->phone) }}"
+                        class="contact-icon phone-icon"
+                        aria-label="اتصل بنا"
+                        title="اتصل بنا">
 
-</span>
+                        <i class="bi bi-telephone-fill"></i>
 
-            </button>
+                    </a>
+
+                @endif
+
+
+                {{-- واتساب --}}
+                @if(!empty($settings?->whatsapp))
+
+                    @php
+
+                        $whatsapp = preg_replace(
+                            '/[^0-9]/',
+                            '',
+                            $settings->whatsapp
+                        );
+
+                        if (str_starts_with($whatsapp, '01')) {
+
+                            $whatsapp = '20' . substr($whatsapp, 1);
+
+                        }
+
+                    @endphp
+
+
+                    <a
+                        href="https://wa.me/{{ $whatsapp }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="contact-icon whatsapp-icon"
+                        aria-label="واتساب"
+                        title="واتساب">
+
+                        <i class="bi bi-whatsapp"></i>
+
+                    </a>
+
+                @endif
+
+            </div>
 
         </div>
 
     </div>
 </nav>
-<div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas">
 
-    <div class="offcanvas-header">
 
-        <h5 class="offcanvas-title">
-
-            <i class="bi bi-cart3 ms-2"></i>
-
-            سلة المشتريات
-
-        </h5>
-
-        <button class="btn-close"
-                data-bs-dismiss="offcanvas">
-        </button>
-
-    </div>
-
-  <div class="offcanvas-body">
-
-    <div id="cart-items">
-
-        @include('shop.partials.mini-cart')
-
-    </div>
-
-</div>
-
-    <div class="border-top p-3">
-
-        <div class="d-flex justify-content-between mb-3">
-
-            <strong>الإجمالي</strong>
-
-            <strong id="cart-total">
-{{ number_format($cartTotal,2) }} ج.م
-            </strong>
-
-        </div>
-
-        <a href="{{ route('checkout.index') }}"
-class="btn btn-primary w-100 rounded-pill py-2">
-            متابعة الدفع
-
-        </a>
-
-    </div>
-
-</div>
 <style>
-    .navbar{
-    background:#fff!important;
-    padding:12px 0;
-    box-shadow:0 5px 20px rgba(0,0,0,.06);
-}
-/* =========================
-   Cart Item
-========================= */
 
-.cart-item{
-    display:flex;
-    align-items:center;
-    gap:15px;
-    padding:15px;
-    border-bottom:1px solid #eee;
-}
+/* =====================================================
+   NAVBAR
+===================================================== */
 
-.cart-item:last-child{
-    border-bottom:none;
-}
+.main-navbar {
 
-.cart-item img{
-    width:80px;
-    height:80px;
-    min-width:80px;
-    object-fit:cover;
-    border-radius:12px;
-    border:1px solid #eee;
-    background:#fff;
+    min-height: 72px;
+
+    background: rgba(255, 255, 255, 0.97) !important;
+
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, .07);
+
+    border-bottom:
+        1px solid rgba(0, 0, 0, .05);
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 99999;
+
 }
 
-.cart-item-info{
-    flex:1;
+
+/* =====================================================
+   SITE NAME
+===================================================== */
+
+.site-brand {
+
+    font-size: 25px;
+
+    font-weight: 800;
+
+    color: #0d6efd !important;
+
+    text-decoration: none;
+
+    letter-spacing: -.5px;
+
+    transition: .3s ease;
+
 }
 
-.cart-item-title{
-    font-size:15px;
-    font-weight:700;
-    margin-bottom:6px;
-    color:#222;
-    line-height:1.5;
+
+.site-brand:hover {
+
+    transform: translateY(-1px);
+
+    color: #0958c7 !important;
+
 }
 
-.cart-price{
-    color:#0d6efd;
-    font-size:17px;
-    font-weight:700;
-    margin-bottom:4px;
-}
-.navbar-brand{
-    font-weight:800;
-}
 
-.navbar-nav{
-    gap:8px;
-}
+/* =====================================================
+   NAV LINKS
+===================================================== */
 
-.nav-link{
-    color:#444!important;
-    font-weight:600;
-    padding:10px 18px!important;
-    border-radius:8px;
-    transition:.3s;
-}
+.main-navbar .nav-link {
 
-.nav-link:hover,
-.nav-link.active{
-    background:#0d6efd;
-    color:#fff!important;
+    position: relative;
+
+    color: #222;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    padding:
+        24px 15px;
+
+    transition: .25s ease;
+
 }
 
-.dropdown-menu{
-    border:none;
-    border-radius:15px;
-    padding:8px;
-    box-shadow:0 15px 40px rgba(0,0,0,.12);
+
+/* الخط تحت الرابط */
+
+.main-navbar .nav-link::after {
+
+    content: "";
+
+    position: absolute;
+
+    bottom: 12px;
+
+    right: 15px;
+
+    width: 0;
+
+    height: 2px;
+
+    background: #0d6efd;
+
+    border-radius: 10px;
+
+    transition: .3s ease;
+
 }
 
-.dropdown-item{
-    padding:10px 15px;
-    border-radius:8px;
+
+.main-navbar .nav-link:hover,
+
+.main-navbar .nav-link.active {
+
+    color: #0d6efd;
+
 }
 
-.dropdown-item:hover{
-    background:#0d6efd;
-    color:#fff;
+
+.main-navbar .nav-link:hover::after,
+
+.main-navbar .nav-link.active::after {
+
+    width: calc(100% - 30px);
+
 }
 
-.cart-btn{
-    width:50px;
-    height:50px;
-    border:none;
-    border-radius:12px;
-    background:#0d6efd;
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:22px;
+
+/* =====================================================
+   PRODUCTS DROPDOWN
+===================================================== */
+
+.products-dropdown {
+
+    position: relative;
+
+    z-index: 100000;
 }
 
-.cart-btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 10px 25px rgba(13,110,253,.35);
+
+/* القائمة */
+
+.products-menu {
+
+    min-width: 240px;
+
+    margin-top: 5px !important;
+
+    padding: 8px;
+
+    background: #fff;
+
+    border: 0;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, .15);
+
+    z-index: 999999 !important;
+
 }
 
-.offcanvas{
-    width:380px;
+
+/* عناصر القائمة */
+
+.products-menu .dropdown-item {
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 11px 13px;
+
+    margin: 2px 0;
+
+    border-radius: 9px;
+
+    color: #333;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: .2s ease;
+
 }
 
-@media(max-width:991px){
 
-    .navbar-nav{
+/* الأيقونة */
 
-        padding:20px 0;
+.products-menu .dropdown-item i {
+
+    color: #0d6efd;
+
+    font-size: 13px;
+
+    transition: .2s ease;
+
+}
+
+
+/* Hover */
+
+.products-menu .dropdown-item:hover {
+
+    background: #eef5ff;
+
+    color: #0d6efd;
+
+    transform: translateX(-3px);
+
+}
+
+
+.products-menu .dropdown-item:hover i {
+
+    transform: translateX(-3px);
+
+}
+
+
+/* Divider */
+
+.products-menu .dropdown-divider {
+
+    margin:
+        6px 4px;
+
+    opacity: .08;
+
+}
+
+
+/* =====================================================
+   CONTACT BUTTONS
+===================================================== */
+
+.navbar-contact {
+
+    margin-right: 15px;
+
+}
+
+
+.contact-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-decoration: none;
+
+    font-size: 17px;
+
+    transition: .3s ease;
+
+    background: #fff;
+
+}
+
+
+/* Phone */
+
+.phone-icon {
+
+    color: #0d6efd;
+
+    border:
+        1px solid rgba(13, 110, 253, .35);
+
+}
+
+
+.phone-icon:hover {
+
+    background: #0d6efd;
+
+    color: #fff;
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 7px 18px rgba(13, 110, 253, .25);
+
+}
+
+
+/* WhatsApp */
+
+.whatsapp-icon {
+
+    color: #25D366;
+
+    border:
+        1px solid rgba(37, 211, 102, .35);
+
+}
+
+
+.whatsapp-icon:hover {
+
+    background: #25D366;
+
+    color: #fff;
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 7px 18px rgba(37, 211, 102, .25);
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 991px) {
+
+
+    .main-navbar {
+
+        min-height: auto;
 
     }
 
-    .cart-btn{
 
-        margin-top:15px;
-        width:100%;
+    .main-navbar .nav-link {
+
+        padding:
+            12px 15px;
+
+    }
+
+
+    .main-navbar .nav-link::after {
+
+        display: none;
+
+    }
+
+
+    .navbar-nav {
+
+        padding:
+            10px 0;
+
+    }
+
+
+    .navbar-contact {
+
+        margin-right: 0;
+
+        padding:
+            10px 0 15px;
+
+    }
+
+
+    .products-menu {
+
+        position: static !important;
+
+        width: 100%;
+
+        margin-top: 0 !important;
+
+        box-shadow: none;
+
+        border:
+            1px solid #eee;
 
     }
 

@@ -13,7 +13,6 @@ class Product extends Model
         'sale_price',
         'quantity',
         'images',
-        
         'category_id',
         'is_new',
         'is_featured',
@@ -25,10 +24,31 @@ class Product extends Model
         'is_new' => 'boolean',
         'is_featured' => 'boolean',
         'status' => 'boolean',
+        'price' => 'decimal:2',
+        'sale_price' => 'decimal:2',
     ];
 
     public function category()
     {
-        return $this->belongsTo(ProductCategory::class, 'category_id');
+        return $this->belongsTo(
+            ProductCategory::class,
+            'category_id'
+        );
+    }
+
+    /**
+     * السعر الحالي للمنتج
+     */
+    public function getCurrentPriceAttribute()
+    {
+        return $this->sale_price ?: $this->price;
+    }
+
+    /**
+     * هل المنتج متاح؟
+     */
+    public function getIsAvailableAttribute()
+    {
+        return $this->status && $this->quantity > 0;
     }
 }

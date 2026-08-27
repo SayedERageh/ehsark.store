@@ -43,19 +43,44 @@
 
           <div class="hero-buttons">
 
-            <a href="{{ route('services.index') }}" class="hero-btn primary-btn">
-              <i class="bi bi-cart3"></i>
-              تصفح المنتجات
-            </a>
+    {{-- تصفح المنتجات --}}
+    <a href="{{ route('shop.index') }}" class="hero-btn primary-btn">
+        <i class="bi bi-grid-3x3-gap-fill"></i>
+        تصفح المنتجات
+    </a>
 
-            <a href="https://wa.me/201111402160"
-               target="_blank"
-               class="hero-btn whatsapp-btn">
-              <i class="bi bi-whatsapp"></i>
-              تواصل معنا
-            </a>
+    {{-- واتساب --}}
+    @if(!empty($settings?->whatsapp))
 
-          </div>
+        @php
+            $whatsapp = preg_replace('/[^0-9]/', '', $settings->whatsapp);
+
+            if (str_starts_with($whatsapp, '01')) {
+                $whatsapp = '20' . substr($whatsapp, 1);
+            }
+        @endphp
+
+        <a
+            href="https://wa.me/{{ $whatsapp }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hero-btn whatsapp-btn"
+        >
+            <i class="bi bi-whatsapp"></i>
+            تواصل معنا
+        </a>
+
+    @else
+
+        {{-- في حالة عدم وجود واتساب --}}
+        <a href="{{ route('contact') }}" class="hero-btn whatsapp-btn">
+            <i class="bi bi-chat-dots-fill"></i>
+            تواصل معنا
+        </a>
+
+    @endif
+
+</div>
 
           <div class="hero-features">
 

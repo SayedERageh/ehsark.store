@@ -33,55 +33,16 @@ Route::view('/تواصل-معنا', 'pages.contact')->name('contact');
 |--------------------------------------------------------------------------
 */
 
-Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
+Route::get('/shop', [ShopController::class, 'index'])
+    ->name('shop.index');
 
-Route::get('/shop/{id}', [ShopController::class, 'show'])->name('shop.show');
+Route::get('/shop/category/{id}', [ShopController::class, 'category'])
+    ->name('shop.category');
 
+Route::get('/shop/{id}', [ShopController::class, 'show'])
+    ->name('shop.show');
+    
 
-Route::get('/mini-cart', [CartController::class, 'miniCart'])
-    ->name('cart.mini');
-    Route::get('/cart/data', [CartController::class, 'data'])
-    ->name('cart.data');
-/*
-
-|---------------------------    -----------------------------------------------
-| Cart
-|--------------------------------------------------------------------------
-*/
-
-Route::prefix('cart')->name('cart.')->group(function () {
-
-    Route::get('/', [CartController::class, 'index'])->name('index');
-
-    Route::post('/add/{id}', [CartController::class, 'add'])->name('add');
-
-    Route::post('/increase/{id}', [CartController::class, 'increase'])->name('increase');
-
-    Route::post('/decrease/{id}', [CartController::class, 'decrease'])->name('decrease');
-
-    Route::delete('/remove/{id}', [CartController::class, 'remove'])->name('remove');
-
-});
-
-/*
-|--------------------------------------------------------------------------
-| Checkout
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/checkout', [CheckoutController::class, 'index'])
-    ->name('checkout.index');
-
-Route::post('/checkout', [CheckoutController::class, 'store'])
-    ->name('checkout.store');
-
-Route::get('/checkout/success/{order}', [CheckoutController::class, 'success'])
-    ->name('checkout.success');
-/*
-|--------------------------------------------------------------------------
-| Services
-|--------------------------------------------------------------------------
-*/
 
 Route::get('/الخدمات', [ServiceController::class, 'index'])
     ->name('services.index');
@@ -95,6 +56,8 @@ Route::get('/الخدمات/{slug}', [ServiceController::class, 'show'])
 |--------------------------------------------------------------------------
 */
 
+Route::view('/checkout', 'checkout')
+    ->name('checkout');
 Route::get('/المقالات', [PostController::class, 'index'])
     ->name('posts.index');
 

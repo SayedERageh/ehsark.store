@@ -15,8 +15,12 @@ class ProductCategory extends Model
         'status',
     ];
 
-   public function products()
-{
-    return $this->hasMany(Product::class, 'category_id');
-}
+    protected $casts = [
+        'status' => 'boolean',
+    ];
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class, 'category_id');
+    }
 }

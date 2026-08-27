@@ -6,34 +6,68 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 
-
 class ShopController
 {
+    /**
+     * الصفحة الرئيسية للمتجر
+     */
     public function index(Request $request)
     {
-        $categories = ProductCategory::with([
+        /*
+        |--------------------------------------------------------------------------
+        | الأقسام
+        |--------------------------------------------------------------------------
+        */
+
+        $categories = ProductCategory::withCount([
+            'products' => function ($query) {
+                $query->where('status', true);
+            }
+        ])
+        ->with([
             'products' => function ($query) {
                 $query->where('status', true)
                     ->latest();
             }
-        ])->get();
+        ])
+        ->latest()
+        ->get();
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | المنتجات
+        |--------------------------------------------------------------------------
+        */
 
         $query = Product::with('category')
             ->where('status', true);
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | البحث
+        |--------------------------------------------------------------------------
+        */
+
         if ($request->filled('search')) {
 
-            $query->where(function ($q) use ($request) {
+            $search = $request->search;
 
-                $q->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('description', 'like', '%' . $request->search . '%');
+            $query->where(function ($q) use ($search) {
+
+                $q->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
 
             });
-
         }
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | فلترة القسم
+        |--------------------------------------------------------------------------
+        */
 
         if ($request->filled('category')) {
 
@@ -42,11 +76,23 @@ class ShopController
         }
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | جميع المنتجات
+        |--------------------------------------------------------------------------
+        */
+
         $products = $query
             ->latest()
             ->paginate(12)
             ->withQueryString();
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | المنتجات المميزة
+        |--------------------------------------------------------------------------
+        */
 
         $featuredProducts = Product::with('category')
             ->where('status', true)
@@ -56,22 +102,75 @@ class ShopController
             ->get();
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | أحدث المنتجات
+        |--------------------------------------------------------------------------
+        */
+
+        $latestProducts = Product::with('category')
+            ->where('status', true)
+            ->latest()
+            ->take(8)
+            ->get();
+
+
         return view('shop.index', compact(
-            'products',
             'categories',
-            'featuredProducts'
+            'products',
+            'featuredProducts',
+            'latestProducts'
         ));
     }
 
+public function category($id)
+{
+    $category = ProductCategory::findOrFail($id);
 
+    $products = Product::with('category')
+        ->where('category_id', $category->id)
+        ->where('status', true)
+        ->latest()
+        ->paginate(12)
+        ->withQueryString();
+
+    $categories = ProductCategory::withCount([
+        'products' => function ($query) {
+            $query->where('status', true);
+        }
+    ])
+    ->latest()
+    ->get();
+
+    return view('shop.category', compact(
+        'category',
+        'products',
+        'categories'
+    ));
+}
+
+
+    /**
+     * صفحة المنتج
+     */
     public function show($id)
     {
-        $product = Product::with('category')->findOrFail($id);
+        $product = Product::with('category')
+            ->where('status', true)
+            ->findOrFail($id);
 
 
-        $relatedProducts = Product::where('category_id', $product->category_id)
+        /*
+        |--------------------------------------------------------------------------
+        | منتجات مشابهة من نفس القسم
+        |--------------------------------------------------------------------------
+        */
+
+        $relatedProducts = Product::with('category')
+            ->where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
             ->where('status', true)
+            ->latest()
             ->take(4)
             ->get();
 
