@@ -1,314 +1,137 @@
+
 {{-- =========================================================
-PRODUCTS SECTIONS
+     FEATURED PRODUCTS
 ========================================================= --}}
 
-<section class="home-products-sections" dir="rtl">
+@if($featuredProducts->count())
 
-```
-<div class="container">
+<section class="featured-products-section section" dir="rtl">
+
+    {{-- =====================================================
+         العنوان
+    ====================================================== --}}
+
+    <div class="container section-title" data-aos="fade-up">
+
+        <span class="section-subtitle">
+            منتجاتنا المميزة
+        </span>
+
+        <h2>
+            المنتجات المميزة
+        </h2>
+
+        <p>
+            مجموعة مختارة من أفضل منتجاتنا
+        </p>
+
+    </div>
 
 
     {{-- =====================================================
-         المنتجات المميزة
+         SWIPER
     ====================================================== --}}
 
-    @if($featuredProducts->count())
+    <div class="container">
 
-        <section class="product-section featured-products-section">
+        <div class="featuredProductsSwiper swiper">
 
-            <div class="section-heading">
+            <div class="swiper-wrapper">
 
-                <div class="section-heading-content">
+                @foreach($featuredProducts as $product)
 
-                    <span class="section-badge">
-                        مميز
-                    </span>
+                    <div class="swiper-slide">
 
-                    <h2>
-                        المنتجات المميزة
-                    </h2>
+                        @include('shop.partials.product-card', [
+                            'product' => $product
+                        ])
 
-                    <p>
-                        مجموعة مختارة من أفضل منتجاتنا
-                    </p>
+                    </div>
 
-                </div>
-
-                <a
-                    href="{{ route('shop.index') }}"
-                    class="section-more"
-                >
-                    عرض الكل
-                    <i class="bi bi-arrow-left"></i>
-                </a>
+                @endforeach
 
             </div>
 
 
-            {{-- Swiper --}}
-            <div class="swiper productsSwiper featuredSwiper">
+            {{-- الأسهم --}}
 
-                <div class="swiper-wrapper">
+            <div class="swiper-button-next featured-next"></div>
 
-                    @foreach($featuredProducts as $product)
-
-                        <div class="swiper-slide">
-
-                            @include('shop.partials.product-card', [
-                                'product' => $product
-                            ])
-
-                        </div>
-
-                    @endforeach
-
-                </div>
+            <div class="swiper-button-prev featured-prev"></div>
 
 
-                {{-- Navigation --}}
-                <div class="swiper-button-next featured-next"></div>
+            {{-- Pagination --}}
 
-                <div class="swiper-button-prev featured-prev"></div>
+            <div class="swiper-pagination featured-pagination"></div>
 
+        </div>
 
-                {{-- Pagination --}}
-                <div class="swiper-pagination featured-pagination"></div>
-
-            </div>
-
-        </section>
-
-    @endif
-
-
-
-    {{-- =====================================================
-         الأقسام
-    ====================================================== --}}
-
-    @foreach($categories as $category)
-
-        @if($category->products->count())
-
-            <section
-                class="product-section category-products-section"
-            >
-
-                <div class="section-heading">
-
-                    <div class="section-heading-content">
-
-                        <span class="section-badge">
-                            قسم المنتجات
-                        </span>
-
-                        <h2>
-                            {{ $category->name }}
-                        </h2>
-
-                        <p>
-                            منتجات {{ $category->name }}
-                        </p>
-
-                    </div>
-
-
-                    <a
-                        href="{{ route('shop.category', $category->id) }}"
-                        class="section-more"
-                    >
-                        عرض الكل
-                        <i class="bi bi-arrow-left"></i>
-                    </a>
-
-                </div>
-
-
-                {{-- Swiper --}}
-                <div
-                    class="swiper productsSwiper categorySwiper"
-                >
-
-                    <div class="swiper-wrapper">
-
-                        @foreach($category->products as $product)
-
-                            <div class="swiper-slide">
-
-                                @include(
-                                    'shop.partials.product-card',
-                                    [
-                                        'product' => $product
-                                    ]
-                                )
-
-                            </div>
-
-                        @endforeach
-
-                    </div>
-
-
-                    {{-- Navigation --}}
-                    <div class="swiper-button-next"></div>
-
-                    <div class="swiper-button-prev"></div>
-
-
-                    {{-- Pagination --}}
-                    <div class="swiper-pagination"></div>
-
-                </div>
-
-            </section>
-
-        @endif
-
-    @endforeach
-
-</div>
-```
+    </div>
 
 </section>
+
+@endif
+
 
 <style>
 
 /* =========================================================
-   PRODUCTS SECTIONS
+   FEATURED PRODUCTS
 ========================================================= */
 
-.home-products-sections {
+.featured-products-section {
     padding: 70px 0;
-    background: #fff;
+
+    overflow: hidden;
+
+    background: #ffffff;
 }
 
 
 /* =========================================================
-   SECTION
+   SECTION TITLE
 ========================================================= */
 
-.product-section {
-    position: relative;
+.featured-products-section .section-title {
+    text-align: center;
 
-    margin-bottom: 75px;
+    margin-bottom: 35px;
 }
 
 
-.product-section:last-child {
-    margin-bottom: 0;
-}
+.featured-products-section .section-subtitle {
 
-
-/* =========================================================
-   HEADING
-========================================================= */
-
-.section-heading {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 20px;
-
-    margin-bottom: 28px;
-}
-
-
-.section-heading-content {
-    min-width: 0;
-}
-
-
-.section-badge {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    padding: 5px 12px;
+    display: inline-block;
 
     margin-bottom: 8px;
 
-    border-radius: 50px;
+    color: #0875e1;
 
-    background: #eef7fb;
-
-    color: #0b7fab;
-
-    font-size: 11px;
+    font-size: 14px;
 
     font-weight: 800;
 }
 
 
-.section-heading h2 {
+.featured-products-section .section-title h2 {
 
-    margin: 0;
+    margin-bottom: 8px;
 
-    color: #142033;
+    color: #102a43;
 
-    font-size: 28px;
+    font-size: 32px;
 
     font-weight: 900;
 }
 
 
-.section-heading p {
+.featured-products-section .section-title p {
 
-    margin: 7px 0 0;
+    margin: 0;
 
-    color: #8993a4;
+    color: #718096;
 
-    font-size: 13px;
-}
-
-
-/* =========================================================
-   MORE BUTTON
-========================================================= */
-
-.section-more {
-
-    flex-shrink: 0;
-
-    display: inline-flex;
-
-    align-items: center;
-
-    gap: 7px;
-
-    padding: 10px 16px;
-
-    border: 1px solid #e2e8ef;
-
-    border-radius: 10px;
-
-    color: #142033;
-
-    background: #fff;
-
-    text-decoration: none;
-
-    font-size: 12px;
-
-    font-weight: 800;
-
-    transition: .25s;
-}
-
-
-.section-more:hover {
-
-    background: #0b7fab;
-
-    border-color: #0b7fab;
-
-    color: #fff;
-
-    transform: translateX(-3px);
+    font-size: 15px;
 }
 
 
@@ -316,15 +139,23 @@ PRODUCTS SECTIONS
    SWIPER
 ========================================================= */
 
-.productsSwiper {
+.featuredProductsSwiper {
 
     position: relative;
 
-    padding: 5px 5px 45px;
+    padding: 10px 45px 55px;
+
+    overflow: hidden;
 }
 
 
-.productsSwiper .swiper-slide {
+.featuredProductsSwiper .swiper-wrapper {
+
+    align-items: stretch;
+}
+
+
+.featuredProductsSwiper .swiper-slide {
 
     height: auto;
 
@@ -332,29 +163,44 @@ PRODUCTS SECTIONS
 }
 
 
-/* =========================================================
-   NAVIGATION
-========================================================= */
+.featuredProductsSwiper .swiper-slide > * {
 
-.productsSwiper .swiper-button-next,
-.productsSwiper .swiper-button-prev {
-
-    width: 40px;
-    height: 40px;
-
-    border-radius: 50%;
-
-    background: #fff;
-
-    box-shadow:
-        0 5px 20px rgba(15,23,42,.12);
-
-    color: #0b7fab;
+    width: 100%;
 }
 
 
-.productsSwiper .swiper-button-next::after,
-.productsSwiper .swiper-button-prev::after {
+/* =========================================================
+   ARROWS
+========================================================= */
+
+.featuredProductsSwiper
+.swiper-button-next,
+
+.featuredProductsSwiper
+.swiper-button-prev {
+
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 50%;
+
+    background: #0875e1;
+
+    box-shadow:
+        0 8px 25px rgba(8, 117, 225, .20);
+
+    transition: all .3s ease;
+}
+
+
+.featuredProductsSwiper
+.swiper-button-next::after,
+
+.featuredProductsSwiper
+.swiper-button-prev::after {
+
+    color: #ffffff;
 
     font-size: 15px;
 
@@ -362,36 +208,50 @@ PRODUCTS SECTIONS
 }
 
 
+.featuredProductsSwiper
+.swiper-button-next:hover,
+
+.featuredProductsSwiper
+.swiper-button-prev:hover {
+
+    background: #005bb5;
+
+    transform: scale(1.08);
+}
+
+
 /* =========================================================
    PAGINATION
 ========================================================= */
 
-.productsSwiper .swiper-pagination {
+.featuredProductsSwiper
+.swiper-pagination {
 
-    bottom: 5px;
+    bottom: 8px !important;
 }
 
 
-.productsSwiper
+.featuredProductsSwiper
 .swiper-pagination-bullet {
 
-    width: 7px;
-    height: 7px;
+    width: 8px;
+
+    height: 8px;
 
     opacity: .35;
+
+    transition: all .3s ease;
 }
 
 
-.productsSwiper
+.featuredProductsSwiper
 .swiper-pagination-bullet-active {
 
-    width: 20px;
+    width: 24px;
 
-    border-radius: 10px;
+    border-radius: 20px;
 
     opacity: 1;
-
-    background: #0b7fab;
 }
 
 
@@ -399,78 +259,53 @@ PRODUCTS SECTIONS
    MOBILE
 ========================================================= */
 
-@media(max-width: 576px) {
+@media (max-width: 768px) {
 
-    .home-products-sections {
+    .featured-products-section {
 
-        padding: 45px 0;
+        padding: 50px 0;
     }
 
 
-    .product-section {
+    .featured-products-section
+    .section-title h2 {
 
-        margin-bottom: 50px;
+        font-size: 25px;
     }
 
 
-    .section-heading {
+    .featured-products-section
+    .section-title p {
 
-        align-items: flex-start;
+        font-size: 13px;
     }
 
 
-    .section-heading h2 {
+    .featuredProductsSwiper {
 
-        font-size: 22px;
+        padding:
+            10px
+            10px
+            50px;
     }
 
 
-    .section-heading p {
-
-        font-size: 11px;
-    }
-
-
-    .section-more {
-
-        padding: 8px 11px;
-
-        font-size: 10px;
-    }
-
-
-    .productsSwiper {
-
-        padding-left: 0;
-
-        padding-right: 0;
-    }
-
-
-    .productsSwiper
+    .featuredProductsSwiper
     .swiper-button-next,
-    .productsSwiper
+
+    .featuredProductsSwiper
     .swiper-button-prev {
 
-        width: 34px;
-        height: 34px;
-    }
-
-
-    .productsSwiper
-    .swiper-button-next::after,
-    .productsSwiper
-    .swiper-button-prev::after {
-
-        font-size: 12px;
+        display: none;
     }
 
 }
 
 </style>
 
+
 {{-- =========================================================
-SWIPER INITIALIZATION
+     SWIPER INITIALIZATION
 ========================================================= --}}
 
 @push('scripts')
@@ -479,124 +314,184 @@ SWIPER INITIALIZATION
 
 document.addEventListener('DOMContentLoaded', function () {
 
+    /*
+    |--------------------------------------------------------------------------
+    | التأكد أن Swiper موجود
+    |--------------------------------------------------------------------------
+    */
 
-    /* =====================================================
-       المنتجات المميزة
-    ====================================================== */
+    if (typeof Swiper === 'undefined') {
 
-    const featuredSwiper = document.querySelector('.featuredSwiper');
+        console.error('Swiper JS غير محمل');
 
-    if (featuredSwiper) {
-
-        new Swiper(featuredSwiper, {
-
-            loop: true,
-
-            spaceBetween: 20,
-
-            slidesPerView: 1,
-
-            navigation: {
-
-                nextEl: '.featured-next',
-
-                prevEl: '.featured-prev',
-
-            },
-
-            pagination: {
-
-                el: '.featured-pagination',
-
-                clickable: true,
-
-            },
-
-            breakpoints: {
-
-                576: {
-                    slidesPerView: 2,
-                },
-
-                768: {
-                    slidesPerView: 3,
-                },
-
-                1200: {
-                    slidesPerView: 4,
-                }
-
-            }
-
-        });
-
+        return;
     }
 
 
-    /* =====================================================
-       أقسام المنتجات
-    ====================================================== */
+    /*
+    |--------------------------------------------------------------------------
+    | Featured Products
+    |--------------------------------------------------------------------------
+    */
 
-    document
-        .querySelectorAll('.categorySwiper')
-        .forEach(function (slider) {
-
-            const nextButton =
-                slider.querySelector('.swiper-button-next');
-
-            const prevButton =
-                slider.querySelector('.swiper-button-prev');
-
-            const pagination =
-                slider.querySelector('.swiper-pagination');
+    const featuredSlider =
+        document.querySelector('.featuredProductsSwiper');
 
 
-            new Swiper(slider, {
+    if (!featuredSlider) {
+        return;
+    }
 
-                loop: true,
+
+    new Swiper(featuredSlider, {
+
+        /*
+        |--------------------------------------------------------------------------
+        | عدد المنتجات
+        |--------------------------------------------------------------------------
+        */
+
+        slidesPerView: 1,
+
+        spaceBetween: 15,
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Loop
+        |--------------------------------------------------------------------------
+        */
+
+        loop: true,
+
+        loopAdditionalSlides: 4,
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Autoplay
+        |--------------------------------------------------------------------------
+        */
+
+        autoplay: {
+
+            delay: 2500,
+
+            disableOnInteraction: false,
+
+            pauseOnMouseEnter: true,
+
+        },
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | سرعة الحركة
+        |--------------------------------------------------------------------------
+        */
+
+        speed: 700,
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | الأسهم
+        |--------------------------------------------------------------------------
+        */
+
+        navigation: {
+
+            nextEl: '.featured-next',
+
+            prevEl: '.featured-prev',
+
+        },
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Pagination
+        |--------------------------------------------------------------------------
+        */
+
+        pagination: {
+
+            el: '.featured-pagination',
+
+            clickable: true,
+
+        },
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Responsive
+        |--------------------------------------------------------------------------
+        */
+
+        breakpoints: {
+
+            /* موبايل */
+
+            0: {
+
+                slidesPerView: 1.2,
+
+                spaceBetween: 15,
+
+            },
+
+
+            /* موبايل كبير */
+
+            576: {
+
+                slidesPerView: 2,
+
+                spaceBetween: 18,
+
+            },
+
+
+            /* تابلت */
+
+            768: {
+
+                slidesPerView: 3,
 
                 spaceBetween: 20,
 
-                slidesPerView: 1,
+            },
 
-                navigation: {
 
-                    nextEl: nextButton,
+            /* كمبيوتر */
 
-                    prevEl: prevButton,
+            1200: {
 
-                },
+                slidesPerView: 4,
 
-                pagination: {
+                spaceBetween: 24,
 
-                    el: pagination,
+            }
 
-                    clickable: true,
+        },
 
-                },
 
-                breakpoints: {
+        /*
+        |--------------------------------------------------------------------------
+        | تحديث تلقائي
+        |--------------------------------------------------------------------------
+        */
 
-                    576: {
-                        slidesPerView: 2,
-                    },
+        observer: true,
 
-                    768: {
-                        slidesPerView: 3,
-                    },
+        observeParents: true,
 
-                    1200: {
-                        slidesPerView: 4,
-                    }
-
-                }
-
-            });
-
-        });
+    });
 
 });
 
 </script>
 
 @endpush
+```
