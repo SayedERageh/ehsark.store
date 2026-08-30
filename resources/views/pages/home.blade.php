@@ -7,7 +7,8 @@
   <main class="main">
 @include('components.carouselHero')
    @include('components.Featured')
-
+   @include('sections.products-sections')
+@include('components.latest-products')
 @include('components.features')
 @include('components.call')
 @include('components.onfocus')
@@ -16,12 +17,14 @@
 <!-- Testimonials Section -->
 @include('components.testimonials')
 <!-- /Testimonials Section -->
+@include('sections.brands')
 <!-- FAQ Section -->
 @include('components.faq')
 
         <!-- Clients Section -->
 @include('components.clients')
     
+
 
   </main>
 

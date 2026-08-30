@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Brand;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Slider;
@@ -61,7 +61,10 @@ class HomeController extends Controller
         $sliders = Slider::where('active', true)
             ->latest()
             ->get();
-
+$brands = Brand::where('status', true)
+    ->orderBy('sort_order')
+    ->latest()
+    ->get();
 
         /*
         |--------------------------------------------------------------------------
@@ -74,6 +77,8 @@ class HomeController extends Controller
             'featuredProducts',
             'latestProducts',
             'sliders'
+            ,    'brands'
+
         ));
     }
 }

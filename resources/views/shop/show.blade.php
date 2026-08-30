@@ -382,40 +382,43 @@
                         @endif
 
 
-                        {{-- Add To Cart --}}
+                       @if($product->quantity > 0)
 
-                        @if($product->quantity > 0)
+   
+<button
+    type="button"
+    class="add-cart-btn btn-add-whatsapp"
 
-                            <form
-                                action="{{ route('cart.add', $product->id) }}"
-                                method="POST">
+    data-product-id="{{ $product->id }}"
+    data-product-name="{{ $product->name }}"
+    data-product-price="{{ $product->current_price }}"
+    data-product-stock="{{ $product->quantity }}"
+>
 
-                                @csrf
+    <i class="bi bi-cart-plus ms-2"></i>
 
-                                <button
-                                    type="submit"
-                                    class="add-cart-btn">
+    أضف إلى السلة
 
-                                    <i class="bi bi-cart-plus ms-2"></i>
+</button>
+   
 
-                                    أضف إلى السلة
+@else
 
-                                </button>
+   
+<button
+    type="button"
+    class="add-cart-btn"
+    disabled
+>
 
-                            </form>
+    <i class="bi bi-x-circle ms-2"></i>
 
-                        @else
+    غير متوفر
 
-                            <button
-                                type="button"
-                                class="btn btn-secondary btn-lg rounded-3"
-                                disabled>
+</button>
+   
 
-                                المنتج غير متوفر
-
-                            </button>
-
-                        @endif
+@endif
 
 
                     </div>
