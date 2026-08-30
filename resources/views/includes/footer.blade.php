@@ -100,46 +100,36 @@
                 </div>
 
 
-                {{-- Categories --}}
-                <div class="col-lg-2 col-md-3 footer-links">
+             {{-- Categories --}}
 
-                    <h4>أقسام المتجر</h4>
+<div class="col-lg-2 col-md-3 footer-links">
 
-                    <ul>
+      
+<h4>أقسام المتجر</h4>
 
-                        <li>
-                            <a href="{{ route('shop.index') }}">
-                                أدوات صحية
-                            </a>
-                        </li>
+<ul>
 
-                        <li>
-                            <a href="{{ route('shop.index') }}">
-                                خلاطات
-                            </a>
-                        </li>
+    @foreach($productCategories ?? [] as $category)
 
-                        <li>
-                            <a href="{{ route('shop.index') }}">
-                                أحواض
-                            </a>
-                        </li>
+        <li>
 
-                        <li>
-                            <a href="{{ route('shop.index') }}">
-                                قطع غيار أصلية
-                            </a>
-                        </li>
+            <a href="{{ route('shop.category', $category->id) }}">
 
-                        <li>
-                            <a href="{{ route('shop.index') }}">
-                                مستلزمات سباكة
-                            </a>
-                        </li>
+                <i class="bi bi-chevron-left ms-1"></i>
 
-                    </ul>
+                {{ $category->name }}
 
-                </div>
+            </a>
+
+        </li>
+
+    @endforeach
+
+</ul>
+      
+
+</div>
+
 
 
                 {{-- CTA --}}
