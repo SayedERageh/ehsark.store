@@ -2,92 +2,90 @@
 <section id="featured-services" class="featured-services section" dir="rtl">
 
   <div class="container text-center mb-5">
-    <h2 style="font-weight:700;">أوتاد مصر</h2>
-    <p>كل ما تحتاجه من الأدوات الصحية ومستلزمات السباكة في مكان واحد</p>
+    <h2 style="font-weight:700;">شارك استور</h2>
+    <p>كل ما يحتاجه موبايلك من إكسسوارات ومستلزمات في مكان واحد</p>
   </div>
 
   <div class="container">
     <div class="row gy-4 justify-content-center">
 
-       <!-- Item 1 -->
-  <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up">
-    <div class="service-item text-center p-4 w-100">
-      <div class="icon mb-3">
-        <i class="bi bi-lightning-charge"></i>
+      <!-- Item 1 -->
+      <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up">
+        <div class="service-item text-center p-4 w-100">
+          <div class="icon mb-3">
+            <i class="bi bi-phone"></i>
+          </div>
+          <h4>إكسسوارات مميزة</h4>
+          <p>
+            تشكيلة متنوعة من إكسسوارات الموبايلات التي تجمع بين الجودة والتصميم العصري.
+          </p>
+        </div>
       </div>
-      <h4>منتجات أصلية</h4>
-      <p>
-        نوفر أدوات صحية ومستلزمات سباكة أصلية من أفضل العلامات التجارية المعروفة.
-      </p>
-    </div>
-  </div>
 
-  <!-- Item 2 -->
-  <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
-    <div class="service-item text-center p-4 w-100">
-      <div class="icon mb-3">
-        <i class="bi bi-cash-stack"></i>
+      <!-- Item 2 -->
+      <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
+        <div class="service-item text-center p-4 w-100">
+          <div class="icon mb-3">
+            <i class="bi bi-cash-stack"></i>
+          </div>
+          <h4>أسعار مناسبة</h4>
+          <p>
+            أسعار تنافسية وعروض مميزة على مختلف إكسسوارات ومستلزمات الموبايلات.
+          </p>
+        </div>
       </div>
-      <h4>أسعار تنافسية</h4>
-      <p>
-        أفضل الأسعار للجملة والتجزئة مع عروض مستمرة على العديد من الأدوات الصحية والسباكة.
-      </p>
-    </div>
-  </div>
 
-  <!-- Item 3 -->
-  <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
-    <div class="service-item text-center p-4 w-100">
-      <div class="icon mb-3">
-        <i class="bi bi-grid-3x3-gap"></i>
+      <!-- Item 3 -->
+      <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-item text-center p-4 w-100">
+          <div class="icon mb-3">
+            <i class="bi bi-grid-3x3-gap"></i>
+          </div>
+          <h4>تشكيلة متنوعة</h4>
+          <p>
+            كفرات، شواحن، سماعات، كابلات، واقيات شاشة والعديد من مستلزمات الموبايلات.
+          </p>
+        </div>
       </div>
-      <h4>تنوع كبير</h4>
-      <p>
-        نوفر خلاطات وأحواض وأدوات صحية ومستلزمات سباكة وقطع غيار وجميع المستلزمات الصحية.
-      </p>
-    </div>
-  </div>
 
-  <!-- Item 4 -->
-  <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up">
-    <div class="service-item text-center p-4 w-100">
-      <div class="icon mb-3">
-        <i class="bi bi-tools"></i>
+      <!-- Item 4 -->
+      <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up">
+        <div class="service-item text-center p-4 w-100">
+          <div class="icon mb-3">
+            <i class="bi bi-battery-charging"></i>
+          </div>
+          <h4>شواحن وكابلات</h4>
+          <p>
+            مجموعة متنوعة من الشواحن والكابلات لتوفير شحن سريع وآمن لمختلف الأجهزة.
+          </p>
+        </div>
       </div>
-      <h4>قطع غيار متنوعة</h4>
-      <p>
-        تشكيلة كبيرة من قطع غيار الأدوات الصحية ومستلزمات السباكة لتلبية جميع الاحتياجات.
-      </p>
-    </div>
-  </div>
 
-  <!-- Item 5 -->
-  <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
-    <div class="service-item text-center p-4 w-100">
-      <div class="icon mb-3">
-        <i class="bi bi-headset"></i>
+      <!-- Item 5 -->
+      <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
+        <div class="service-item text-center p-4 w-100">
+          <div class="icon mb-3">
+            <i class="bi bi-headphones"></i>
+          </div>
+          <h4>سماعات ومستلزمات</h4>
+          <p>
+            سماعات ومستلزمات صوتية متنوعة للاستمتاع بتجربة استخدام أفضل في كل وقت.
+          </p>
+        </div>
       </div>
-      <h4>خدمة عملاء متميزة</h4>
-      <p>
-        فريق جاهز لمساعدتك في اختيار المنتج المناسب والإجابة على جميع استفساراتك.
-      </p>
-    </div>
-  </div>
 
-  <!-- Item 6 -->
-  <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
-    <div class="service-item text-center p-4 w-100">
-      <div class="icon mb-3">
-        <i class="bi bi-award"></i>
+      <!-- Item 6 -->
+      <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-item text-center p-4 w-100">
+          <div class="icon mb-3">
+            <i class="bi bi-shield-check"></i>
+          </div>
+          <h4>جودة وثقة</h4>
+          <p>
+            نحرص على توفير منتجات موثوقة بجودة جيدة لتمنحك أفضل قيمة مقابل السعر.
+          </p>
+        </div>
       </div>
-      <h4>ثقة وجودة</h4>
-      <p>
-        نحرص على تقديم منتجات موثوقة بجودة عالية تضمن رضا العملاء على الدوام.
-      </p>
-    </div>
-  </div>
-
-</div>
 
     </div>
   </div>

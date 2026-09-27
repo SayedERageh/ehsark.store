@@ -12,17 +12,17 @@ class SiteSettingSeeder extends Seeder
         SiteSetting::updateOrCreate(
             ['id' => 1],
             [
-                'site_name' => 'أوتاد مصر',
+                'site_name' => 'شارك استور',
 
-                'site_description' => 'أوتاد مصر متخصص في بيع الأدوات الصحية والخلاطات والأحواض وجميع مستلزمات السباكة الأصلية، بالإضافة إلى المعدات والمستلزمات الصحية بأفضل الأسعار وجودة مضمونة.',
+                'site_description' => 'شارك استور متجر متخصص في إكسسوارات الموبايلات، يوفر تشكيلة متنوعة من إكسسوارات الهواتف بجودة وأسعار مناسبة.',
 
-                'phone' => '201500035736',
+                'phone' => '+20 11 08775757',
 
-                'whatsapp' => '201500035736',
+                'whatsapp' => '+201108775757',
 
                 'email' => null,
 
-                'address' => 'مصر',
+                'address' => null,
 
                 'facebook' => null,
 
@@ -36,7 +36,7 @@ class SiteSettingSeeder extends Seeder
 
                 'favicon' => null,
 
-                'footer_text' => '© جميع الحقوق محفوظة - أوتاد مصر',
+                'footer_text' => 'شارك استور - كل احتياجات موبايلك في مكان واحد.',
             ]
         );
     }

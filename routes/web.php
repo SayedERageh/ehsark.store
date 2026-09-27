@@ -72,3 +72,49 @@ Route::get('/المقالات/{slug}', [PostController::class, 'show'])
 
 Route::post('/contact', [ContactController::class, 'store'])
     ->name('contact.store');
+
+    use App\Models\Product;
+use Illuminate\Http\Request;
+
+Route::get('/search/products', function (Request $request) {
+
+    $search = trim($request->get('q', ''));
+
+    if ($search === '') {
+        return response()->json([]);
+    }
+
+    $products = Product::query()
+        ->where('status', true)
+        ->where(function ($query) use ($search) {
+            $query->where('name', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+        })
+        ->latest()
+        ->limit(8)
+        ->get([
+            'id',
+            'name',
+            'price',
+            'sale_price',
+            'images',
+        ]);
+
+    return response()->json(
+        $products->map(function ($product) {
+
+            $image = is_array($product->images)
+                ? ($product->images[0] ?? null)
+                : null;
+
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'price' => $product->price,
+                'sale_price' => $product->sale_price,
+                'image' => $image,
+                'url' => route('shop.show', $product->id),
+            ];
+        })
+    );
+})->name('products.search');

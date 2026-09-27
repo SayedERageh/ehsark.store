@@ -1,17 +1,28 @@
-<nav class="navbar navbar-expand-lg bg-white sticky-top main-navbar" dir="rtl">
+<nav class="navbar navbar-expand-lg bg-white sticky-top ecommerce-navbar" dir="rtl">
+
     <div class="container">
 
-        {{-- اسم الموقع --}}
-        <a class="navbar-brand site-brand"
+        {{-- =========================
+             BRAND
+        ========================== --}}
+        <a class="navbar-brand ecommerce-brand"
            href="{{ route('home') }}">
 
-            {{ $settings->site_name ?? 'أوتاد مصر' }}
+            <span class="brand-icon">
+                <i class="bi bi-bag-heart-fill"></i>
+            </span>
+
+            <span>
+                {{ $settings->site_name ?? 'شارك استور ' }}
+            </span>
 
         </a>
 
 
-        {{-- Mobile Menu --}}
-        <button class="navbar-toggler"
+        {{-- =========================
+             MOBILE BUTTON
+        ========================== --}}
+        <button class="navbar-toggler ecommerce-toggler"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#mainNavbar"
@@ -19,43 +30,41 @@
                 aria-expanded="false"
                 aria-label="فتح القائمة">
 
-            <span class="navbar-toggler-icon"></span>
+            <span></span>
+            <span></span>
+            <span></span>
 
         </button>
 
 
-        {{-- Navbar Content --}}
-        <div class="collapse navbar-collapse" id="mainNavbar">
+        {{-- =========================
+             NAVBAR CONTENT
+        ========================== --}}
+        <div class="collapse navbar-collapse"
+             id="mainNavbar">
 
 
-            {{-- Links --}}
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            {{-- =========================
+                 LINKS
+            ========================== --}}
+            <ul class="navbar-nav ecommerce-nav mx-lg-3">
 
 
                 {{-- الرئيسية --}}
                 <li class="nav-item">
+
                     <a href="{{ route('home') }}"
                        class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">
 
                         الرئيسية
 
                     </a>
-                </li>
 
-
-                {{-- من نحن --}}
-                <li class="nav-item">
-                    <a href="{{ route('about') }}"
-                       class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}">
-
-                        من نحن
-
-                    </a>
                 </li>
 
 
                 {{-- المنتجات --}}
-                <li class="nav-item dropdown products-dropdown">
+                <li class="nav-item dropdown">
 
                     <a href="{{ route('shop.index') }}"
                        class="nav-link dropdown-toggle {{ request()->routeIs('shop.*') ? 'active' : '' }}"
@@ -68,18 +77,16 @@
                     </a>
 
 
-                    {{-- Dropdown --}}
-                    <ul class="dropdown-menu products-menu text-end">
+                    <ul class="dropdown-menu ecommerce-dropdown">
 
-                        {{-- كل المنتجات --}}
                         <li>
 
                             <a class="dropdown-item"
                                href="{{ route('shop.index') }}">
 
-                                <i class="bi bi-grid-3x3-gap ms-2"></i>
+                                <i class="bi bi-grid-3x3-gap-fill"></i>
 
-                                كل المنتجات
+                                جميع المنتجات
 
                             </a>
 
@@ -91,7 +98,6 @@
                         </li>
 
 
-                        {{-- الأقسام --}}
                         @foreach($productCategories ?? [] as $category)
 
                             <li>
@@ -99,7 +105,7 @@
                                 <a class="dropdown-item"
                                    href="{{ route('shop.category', $category->id) }}">
 
-                                    <i class="bi bi-chevron-left ms-2"></i>
+                                    <i class="bi bi-chevron-left"></i>
 
                                     {{ $category->name }}
 
@@ -142,17 +148,79 @@
             </ul>
 
 
-            {{-- الاتصال والواتساب --}}
-            <div class="navbar-contact d-flex align-items-center gap-2">
+            {{-- =========================
+                 SEARCH
+            ========================== --}}
+            <div class="navbar-search-wrapper">
+
+                <form class="navbar-search"
+                      id="productSearchForm"
+                      action="{{ route('shop.index') }}"
+                      method="GET">
+
+                    <i class="bi bi-search search-icon"></i>
+
+                    <input
+                        type="search"
+                        name="q"
+                        id="productSearchInput"
+                        class="search-input"
+                        placeholder="ابحث عن منتج..."
+                        autocomplete="off">
+
+                    <button type="submit"
+                            class="search-button"
+                            aria-label="بحث">
+
+                        <i class="bi bi-arrow-left"></i>
+
+                    </button>
+
+                </form>
 
 
-                {{-- الاتصال --}}
+                {{-- نتائج البحث --}}
+                <div id="searchResults"
+                     class="search-results">
+
+                    <div class="search-loading d-none">
+                        <i class="bi bi-arrow-repeat"></i>
+                        جاري البحث...
+                    </div>
+
+                    <div class="search-empty d-none">
+                        لم يتم العثور على منتجات
+                    </div>
+
+                    <div id="searchResultsList"></div>
+
+                    <a href="{{ route('shop.index') }}"
+                       id="showAllProducts"
+                       class="show-all-products d-none">
+
+                        عرض جميع المنتجات
+
+                        <i class="bi bi-arrow-left"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            {{-- =========================
+                 CONTACT
+            ========================== --}}
+            <div class="navbar-actions">
+
+
+                {{-- الهاتف --}}
                 @if(!empty($settings?->phone))
 
                     <a
                         href="tel:{{ preg_replace('/[^0-9+]/', '', $settings->phone) }}"
-                        class="contact-icon phone-icon"
-                        aria-label="اتصل بنا"
+                        class="navbar-action phone-action"
                         title="اتصل بنا">
 
                         <i class="bi bi-telephone-fill"></i>
@@ -186,8 +254,7 @@
                         href="https://wa.me/{{ $whatsapp }}"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="contact-icon whatsapp-icon"
-                        aria-label="واتساب"
+                        class="navbar-action whatsapp-action"
                         title="واتساب">
 
                         <i class="bi bi-whatsapp"></i>
@@ -196,11 +263,35 @@
 
                 @endif
 
+
+                {{-- =========================
+                     CART
+                ========================== --}}
+<button
+    type="button"
+    id="navbarCartButton"
+    class="cart-button"
+    title="عربة التسوق">
+
+    <i class="bi bi-cart3"></i>
+
+    <span class="cart-text">
+        العربة
+    </span>
+
+    <span id="navbarCartCount"
+          class="cart-count">
+        0
+    </span>
+
+</button>
+
             </div>
 
         </div>
 
     </div>
+
 </nav>
 
 
@@ -210,21 +301,15 @@
    NAVBAR
 ===================================================== */
 
-.main-navbar {
+.ecommerce-navbar {
 
-    min-height: 72px;
+    min-height: 76px;
 
-    background: rgba(255, 255, 255, 0.97) !important;
+    background: rgba(255,255,255,.97) !important;
 
-    box-shadow:
-        0 4px 20px rgba(0, 0, 0, .07);
+    border-bottom: 1px solid #eeeeee;
 
-    border-bottom:
-        1px solid rgba(0, 0, 0, .05);
-
-    position: sticky;
-
-    top: 0;
+    box-shadow: 0 5px 25px rgba(0,0,0,.06);
 
     z-index: 99999;
 
@@ -232,12 +317,18 @@
 
 
 /* =====================================================
-   SITE NAME
+   BRAND
 ===================================================== */
 
-.site-brand {
+.ecommerce-brand {
 
-    font-size: 25px;
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    font-size: 23px;
 
     font-weight: 800;
 
@@ -245,18 +336,30 @@
 
     text-decoration: none;
 
-    letter-spacing: -.5px;
-
-    transition: .3s ease;
+    white-space: nowrap;
 
 }
 
 
-.site-brand:hover {
+.brand-icon {
 
-    transform: translateY(-1px);
+    width: 39px;
 
-    color: #0958c7 !important;
+    height: 39px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #0d6efd;
+
+    color: white;
+
+    border-radius: 11px;
+
+    font-size: 18px;
 
 }
 
@@ -265,118 +368,62 @@
    NAV LINKS
 ===================================================== */
 
-.main-navbar .nav-link {
+.ecommerce-nav .nav-link {
 
-    position: relative;
+    color: #252525;
 
-    color: #222;
+    font-size: 14px;
 
-    font-size: 15px;
+    font-weight: 700;
 
-    font-weight: 600;
-
-    padding:
-        24px 15px;
+    padding: 27px 11px;
 
     transition: .25s ease;
 
 }
 
 
-/* الخط تحت الرابط */
+.ecommerce-nav .nav-link:hover,
 
-.main-navbar .nav-link::after {
-
-    content: "";
-
-    position: absolute;
-
-    bottom: 12px;
-
-    right: 15px;
-
-    width: 0;
-
-    height: 2px;
-
-    background: #0d6efd;
-
-    border-radius: 10px;
-
-    transition: .3s ease;
-
-}
-
-
-.main-navbar .nav-link:hover,
-
-.main-navbar .nav-link.active {
+.ecommerce-nav .nav-link.active {
 
     color: #0d6efd;
 
 }
 
 
-.main-navbar .nav-link:hover::after,
-
-.main-navbar .nav-link.active::after {
-
-    width: calc(100% - 30px);
-
-}
-
-
 /* =====================================================
-   PRODUCTS DROPDOWN
+   DROPDOWN
 ===================================================== */
 
-.products-dropdown {
+.ecommerce-dropdown {
 
-    position: relative;
-
-    z-index: 100000;
-}
-
-
-/* القائمة */
-
-.products-menu {
-
-    min-width: 240px;
-
-    margin-top: 5px !important;
+    min-width: 235px;
 
     padding: 8px;
 
-    background: #fff;
+    margin-top: 2px !important;
 
     border: 0;
 
     border-radius: 14px;
 
-    box-shadow:
-        0 15px 45px rgba(0, 0, 0, .15);
-
-    z-index: 999999 !important;
+    box-shadow: 0 15px 40px rgba(0,0,0,.13);
 
 }
 
 
-/* عناصر القائمة */
-
-.products-menu .dropdown-item {
+.ecommerce-dropdown .dropdown-item {
 
     display: flex;
 
     align-items: center;
 
+    gap: 9px;
+
     padding: 11px 13px;
 
-    margin: 2px 0;
-
     border-radius: 9px;
-
-    color: #333;
 
     font-size: 14px;
 
@@ -387,22 +434,14 @@
 }
 
 
-/* الأيقونة */
-
-.products-menu .dropdown-item i {
+.ecommerce-dropdown .dropdown-item i {
 
     color: #0d6efd;
-
-    font-size: 13px;
-
-    transition: .2s ease;
 
 }
 
 
-/* Hover */
-
-.products-menu .dropdown-item:hover {
+.ecommerce-dropdown .dropdown-item:hover {
 
     background: #eef5ff;
 
@@ -413,43 +452,108 @@
 }
 
 
-.products-menu .dropdown-item:hover i {
-
-    transform: translateX(-3px);
-
-}
-
-
-/* Divider */
-
-.products-menu .dropdown-divider {
-
-    margin:
-        6px 4px;
-
-    opacity: .08;
-
-}
-
-
 /* =====================================================
-   CONTACT BUTTONS
+   SEARCH
 ===================================================== */
 
-.navbar-contact {
+.navbar-search-wrapper {
 
-    margin-right: 15px;
+    position: relative;
+
+    flex: 1;
+
+    max-width: 310px;
+
+    margin-right: 10px;
 
 }
 
 
-.contact-icon {
+.navbar-search {
 
-    width: 42px;
+    height: 44px;
 
-    height: 42px;
+    display: flex;
 
-    border-radius: 50%;
+    align-items: center;
+
+    background: #f6f8fb;
+
+    border: 1px solid #e7eaf0;
+
+    border-radius: 13px;
+
+    padding: 0 12px;
+
+    transition: .25s ease;
+
+}
+
+
+.navbar-search:focus-within {
+
+    background: #fff;
+
+    border-color: #0d6efd;
+
+    box-shadow:
+        0 0 0 3px rgba(13,110,253,.08);
+
+}
+
+
+.search-icon {
+
+    color: #777;
+
+    font-size: 15px;
+
+}
+
+
+.search-input {
+
+    width: 100%;
+
+    height: 100%;
+
+    border: 0;
+
+    outline: 0;
+
+    background: transparent;
+
+    padding: 0 10px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #222;
+
+}
+
+
+.search-input::placeholder {
+
+    color: #999;
+
+}
+
+
+.search-button {
+
+    width: 32px;
+
+    height: 32px;
+
+    border: 0;
+
+    border-radius: 9px;
+
+    background: #0d6efd;
+
+    color: #fff;
 
     display: flex;
 
@@ -457,67 +561,405 @@
 
     justify-content: center;
 
-    text-decoration: none;
+    cursor: pointer;
 
-    font-size: 17px;
+}
 
-    transition: .3s ease;
+
+.search-button:hover {
+
+    background: #0958c7;
+
+}
+
+
+/* =====================================================
+   SEARCH RESULTS
+===================================================== */
+
+.search-results {
+
+    position: absolute;
+
+    top: calc(100% + 8px);
+
+    right: 0;
+
+    width: 100%;
+
+    min-width: 310px;
 
     background: #fff;
 
+    border-radius: 15px;
+
+    box-shadow: 0 18px 45px rgba(0,0,0,.15);
+
+    border: 1px solid #eeeeee;
+
+    overflow: hidden;
+
+    display: none;
+
+    z-index: 999999;
+
 }
 
 
-/* Phone */
+.search-results.show {
 
-.phone-icon {
+    display: block;
+
+}
+
+
+.search-result-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 10px 12px;
+
+    color: #222;
+
+    text-decoration: none;
+
+    border-bottom: 1px solid #f1f1f1;
+
+    transition: .2s ease;
+
+}
+
+
+.search-result-item:hover {
+
+    background: #f7faff;
+
+}
+
+
+.search-result-image {
+
+    width: 48px;
+
+    height: 48px;
+
+    border-radius: 9px;
+
+    object-fit: cover;
+
+    background: #f3f3f3;
+
+}
+
+
+.search-result-info {
+
+    flex: 1;
+
+    min-width: 0;
+
+}
+
+
+.search-result-name {
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    color: #222;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+}
+
+
+.search-result-price {
+
+    margin-top: 4px;
+
+    font-size: 12px;
+
+    font-weight: 700;
 
     color: #0d6efd;
 
-    border:
-        1px solid rgba(13, 110, 253, .35);
+}
+
+
+.search-result-old-price {
+
+    margin-right: 5px;
+
+    color: #999;
+
+    text-decoration: line-through;
+
+    font-weight: 500;
 
 }
 
 
-.phone-icon:hover {
+.show-all-products {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 12px 14px;
+
+    color: #0d6efd;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    background: #fafcff;
+
+}
+
+
+.show-all-products:hover {
+
+    background: #f0f6ff;
+
+}
+
+
+.search-empty,
+
+.search-loading {
+
+    padding: 20px;
+
+    text-align: center;
+
+    color: #777;
+
+    font-size: 13px;
+
+}
+
+
+.search-loading i {
+
+    margin-left: 5px;
+
+    animation: searchSpin 1s linear infinite;
+
+}
+
+
+@keyframes searchSpin {
+
+    to {
+
+        transform: rotate(360deg);
+
+    }
+
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.navbar-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-right: 10px;
+
+}
+
+
+.navbar-action {
+
+    width: 39px;
+
+    height: 39px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    transition: .25s ease;
+
+}
+
+
+.phone-action {
+
+    color: #0d6efd;
+
+    background: #eef5ff;
+
+}
+
+
+.phone-action:hover {
 
     background: #0d6efd;
 
     color: #fff;
 
-    transform:
-        translateY(-3px);
-
-    box-shadow:
-        0 7px 18px rgba(13, 110, 253, .25);
-
 }
 
 
-/* WhatsApp */
-
-.whatsapp-icon {
+.whatsapp-action {
 
     color: #25D366;
 
-    border:
-        1px solid rgba(37, 211, 102, .35);
+    background: #edfff4;
 
 }
 
 
-.whatsapp-icon:hover {
+.whatsapp-action:hover {
 
     background: #25D366;
 
     color: #fff;
 
-    transform:
-        translateY(-3px);
+}
 
-    box-shadow:
-        0 7px 18px rgba(37, 211, 102, .25);
+
+/* =====================================================
+   CART
+===================================================== */
+
+.cart-button {
+
+    position: relative;
+
+    min-height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 0 11px;
+
+    border-radius: 11px;
+
+    background: #0d6efd;
+
+    color: #fff;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    transition: .25s ease;
+
+}
+
+
+.cart-button:hover {
+
+    background: #0958c7;
+
+    color: #fff;
+
+    transform: translateY(-1px);
+
+}
+
+
+.cart-button > i {
+
+    font-size: 18px;
+
+}
+
+
+.cart-count {
+
+    min-width: 20px;
+
+    height: 20px;
+
+    padding: 0 5px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #fff;
+
+    color: #0d6efd;
+
+    border-radius: 50px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+}
+
+
+/* =====================================================
+   MOBILE TOGGLER
+===================================================== */
+
+.ecommerce-toggler {
+
+    border: 0;
+
+    padding: 7px;
+
+}
+
+
+.ecommerce-toggler:focus {
+
+    box-shadow: none;
+
+}
+
+
+.ecommerce-toggler span {
+
+    display: block;
+
+    width: 25px;
+
+    height: 2px;
+
+    background: #222;
+
+    margin: 5px 0;
+
+    border-radius: 10px;
 
 }
 
@@ -526,64 +968,374 @@
    MOBILE
 ===================================================== */
 
+@media (max-width: 1199px) {
+
+    .ecommerce-nav .nav-link {
+
+        padding-left: 8px;
+
+        padding-right: 8px;
+
+    }
+
+    .navbar-search-wrapper {
+
+        max-width: 240px;
+
+    }
+
+}
+
+
 @media (max-width: 991px) {
 
+    .ecommerce-navbar {
 
-    .main-navbar {
-
-        min-height: auto;
-
-    }
-
-
-    .main-navbar .nav-link {
-
-        padding:
-            12px 15px;
+        min-height: 68px;
 
     }
 
 
-    .main-navbar .nav-link::after {
+    .ecommerce-brand {
+
+        font-size: 20px;
+
+    }
+
+
+    .brand-icon {
+
+        width: 35px;
+
+        height: 35px;
+
+    }
+
+
+    .ecommerce-nav {
+
+        padding: 10px 0;
+
+    }
+
+
+    .ecommerce-nav .nav-link {
+
+        padding: 11px 8px;
+
+        border-radius: 8px;
+
+    }
+
+
+    .ecommerce-nav .nav-link:hover,
+
+    .ecommerce-nav .nav-link.active {
+
+        background: #f0f6ff;
+
+    }
+
+
+    .navbar-search-wrapper {
+
+        width: 100%;
+
+        max-width: none;
+
+        margin: 5px 0 12px;
+
+    }
+
+
+    .search-results {
+
+        min-width: 0;
+
+        width: 100%;
+
+    }
+
+
+    .navbar-actions {
+
+        margin: 0;
+
+        padding-bottom: 15px;
+
+        justify-content: flex-start;
+
+    }
+
+
+    .cart-button {
+
+        flex: 1;
+
+        justify-content: center;
+
+        max-width: 150px;
+
+    }
+
+
+    .products-dropdown .dropdown-menu {
+
+        position: static !important;
+
+        width: 100%;
+
+        box-shadow: none;
+
+        border: 1px solid #eee;
+
+        margin-top: 5px !important;
+
+    }
+
+}
+
+
+@media (max-width: 450px) {
+
+    .cart-text {
 
         display: none;
 
     }
 
 
-    .navbar-nav {
+    .cart-button {
 
-        padding:
-            10px 0;
+        width: 45px;
 
-    }
+        flex: 0 0 45px;
 
-
-    .navbar-contact {
-
-        margin-right: 0;
-
-        padding:
-            10px 0 15px;
-
-    }
-
-
-    .products-menu {
-
-        position: static !important;
-
-        width: 100%;
-
-        margin-top: 0 !important;
-
-        box-shadow: none;
-
-        border:
-            1px solid #eee;
+        padding: 0;
 
     }
 
 }
 
 </style>
+
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const input = document.getElementById('productSearchInput');
+
+    const results = document.getElementById('searchResults');
+
+    const resultsList = document.getElementById('searchResultsList');
+
+    const loading = document.querySelector('.search-loading');
+
+    const empty = document.querySelector('.search-empty');
+
+    const showAll = document.getElementById('showAllProducts');
+
+    const form = document.getElementById('productSearchForm');
+
+    let searchTimer;
+
+
+    if (!input) return;
+
+
+    input.addEventListener('input', function () {
+
+        const query = this.value.trim();
+
+
+        clearTimeout(searchTimer);
+
+
+        if (query.length < 2) {
+
+            results.classList.remove('show');
+
+            resultsList.innerHTML = '';
+
+            loading.classList.add('d-none');
+
+            empty.classList.add('d-none');
+
+            showAll.classList.add('d-none');
+
+            return;
+
+        }
+
+
+        results.classList.add('show');
+
+        loading.classList.remove('d-none');
+
+        empty.classList.add('d-none');
+
+        showAll.classList.add('d-none');
+
+        resultsList.innerHTML = '';
+
+
+        searchTimer = setTimeout(function () {
+
+            fetch(
+                `{{ route('products.search') }}?q=${encodeURIComponent(query)}`,
+                {
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }
+            )
+            .then(response => response.json())
+            .then(products => {
+
+                loading.classList.add('d-none');
+
+                resultsList.innerHTML = '';
+
+
+                if (!products.length) {
+
+                    empty.classList.remove('d-none');
+
+                    return;
+
+                }
+
+
+                showAll.classList.remove('d-none');
+
+
+                products.forEach(product => {
+
+                    let image = product.image
+                        ? `/storage/${product.image}`
+                        : '/images/default-product.png';
+
+
+                    let price = '';
+
+                    if (product.sale_price) {
+
+                        price = `
+                            ${Number(product.sale_price).toLocaleString('ar-EG')}
+                            ج.م
+
+                            <span class="search-result-old-price">
+                                ${Number(product.price).toLocaleString('ar-EG')}
+                                ج.م
+                            </span>
+                        `;
+
+                    } else {
+
+                        price = `
+                            ${Number(product.price).toLocaleString('ar-EG')}
+                            ج.م
+                        `;
+
+                    }
+
+
+                    resultsList.insertAdjacentHTML(
+                        'beforeend',
+                        `
+                        <a href="${product.url}"
+                           class="search-result-item">
+
+                            <img
+                                src="${image}"
+                                class="search-result-image"
+                                alt="${product.name}">
+
+                            <div class="search-result-info">
+
+                                <div class="search-result-name">
+                                    ${product.name}
+                                </div>
+
+                                <div class="search-result-price">
+                                    ${price}
+                                </div>
+
+                            </div>
+
+                            <i class="bi bi-chevron-left"></i>
+
+                        </a>
+                        `
+                    );
+
+                });
+
+            })
+            .catch(error => {
+
+                console.error(error);
+
+                loading.classList.add('d-none');
+
+                empty.textContent =
+                    'حدث خطأ أثناء البحث';
+
+                empty.classList.remove('d-none');
+
+            });
+
+        }, 300);
+
+    });
+
+
+    /*
+     * Submit
+     */
+    form.addEventListener('submit', function (event) {
+
+        const query = input.value.trim();
+
+        if (!query) {
+
+            event.preventDefault();
+
+            input.focus();
+
+        }
+
+    });
+
+
+    /*
+     * Close when clicking outside
+     */
+    document.addEventListener('click', function (event) {
+
+        if (!event.target.closest('.navbar-search-wrapper')) {
+
+            results.classList.remove('show');
+
+        }
+
+    });
+
+
+    /*
+     * Open again when focusing
+     */
+    input.addEventListener('focus', function () {
+
+        if (this.value.trim().length >= 2) {
+
+            results.classList.add('show');
+
+        }
+
+    });
+
+});
+
+</script>

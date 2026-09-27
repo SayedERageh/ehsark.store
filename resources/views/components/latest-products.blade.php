@@ -1,15 +1,14 @@
-
 {{-- =========================================================
-     LATEST PRODUCTS
+     SHAREK STORE - LATEST PRODUCTS
 ========================================================= --}}
 
-<section id="latest-products" class="latest-products section">
+<section id="latest-products" class="latest-products section" dir="rtl">
 
     {{-- العنوان --}}
     <div class="container section-title" data-aos="fade-up">
 
         <span class="section-subtitle">
-            منتجاتنا الجديدة
+            جديد شارك استور
         </span>
 
         <h2>
@@ -17,7 +16,7 @@
         </h2>
 
         <p>
-            تعرف على أحدث المنتجات المضافة إلى متجر أوتاد مصر
+            اكتشف أحدث إكسسوارات ومستلزمات الموبايلات المضافة إلى متجر شارك استور
         </p>
 
     </div>
@@ -64,7 +63,9 @@
 
             <div class="text-center py-5">
 
-                <i class="bi bi-box-seam fs-1 text-muted"></i>
+                <div class="sharek-empty-icon">
+                    <i class="bi bi-phone"></i>
+                </div>
 
                 <p class="mt-3 text-muted">
                     لا توجد منتجات متاحة حاليًا.
@@ -82,46 +83,72 @@
 <style>
 
 /* =========================================================
-   LATEST PRODUCTS
+   SHAREK STORE - LATEST PRODUCTS
 ========================================================= */
 
 .latest-products {
     overflow: hidden;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #f8fbff 100%
+        );
 }
 
 
-/* العنوان */
+/* =========================================================
+   SECTION TITLE
+========================================================= */
 
 .latest-products .section-title {
     text-align: center;
 }
 
 .latest-products .section-subtitle {
-    display: inline-block;
 
-    color: #0875e1;
+    display: inline-flex;
 
-    font-size: 14px;
+    align-items: center;
+    justify-content: center;
+
+    color: #2563eb;
+
+    background: #eff6ff;
+
+    border: 1px solid #dbeafe;
+
+    padding: 7px 17px;
+
+    border-radius: 50px;
+
+    font-size: 13px;
     font-weight: 800;
 
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .latest-products .section-title h2 {
-    color: #102a43;
 
-    font-size: 32px;
+    color: #172033;
+
+    font-size: 34px;
+
     font-weight: 900;
 
-    margin-bottom: 8px;
+    margin-bottom: 9px;
 }
 
 .latest-products .section-title p {
-    color: #718096;
+
+    color: #64748b;
 
     font-size: 15px;
 
     margin-bottom: 0;
+
+    line-height: 1.8;
 }
 
 
@@ -130,14 +157,19 @@
 ========================================================= */
 
 .latestProductsSwiper {
+
     position: relative;
 
-    padding: 15px 45px 55px;
+    padding:
+        15px
+        45px
+        55px;
 
     overflow: hidden;
 }
 
 .latestProductsSwiper .swiper-wrapper {
+
     align-items: stretch;
 }
 
@@ -145,18 +177,17 @@
 /* كل منتج */
 
 .latestProductsSwiper .swiper-slide {
+
     height: auto;
 
     display: flex;
 }
 
 
-/*
-   مهم:
-   نخلي كارت المنتج ياخد عرض السلايد بالكامل
-*/
+/* الكارت يأخذ عرض السلايد */
 
 .latestProductsSwiper .swiper-slide > * {
+
     width: 100%;
 }
 
@@ -167,22 +198,29 @@
 
 .latest-products-next,
 .latest-products-prev {
-    width: 42px;
-    height: 42px;
+
+    width: 43px;
+    height: 43px;
 
     border-radius: 50%;
 
-    background: #0875e1;
+    background: #2563eb;
+
+    border: 3px solid #ffffff;
 
     box-shadow:
-        0 8px 25px rgba(8, 117, 225, .20);
+        0 8px 25px rgba(37, 99, 235, .20);
 
-    transition: all .3s ease;
+    transition:
+        background .3s ease,
+        transform .3s ease,
+        box-shadow .3s ease;
 }
 
 .latest-products-next::after,
 .latest-products-prev::after {
-    font-size: 15px;
+
+    font-size: 14px;
 
     font-weight: 900;
 
@@ -191,9 +229,13 @@
 
 .latest-products-next:hover,
 .latest-products-prev:hover {
-    background: #005bb5;
+
+    background: #1d4ed8;
 
     transform: scale(1.08);
+
+    box-shadow:
+        0 12px 30px rgba(37, 99, 235, .30);
 }
 
 
@@ -202,22 +244,60 @@
 ========================================================= */
 
 .latest-products-pagination {
+
     bottom: 8px !important;
 }
 
-.latest-products-pagination .swiper-pagination-bullet {
+.latest-products-pagination
+.swiper-pagination-bullet {
+
     width: 8px;
     height: 8px;
 
+    background: #94a3b8;
+
     opacity: .35;
+
+    transition: all .3s ease;
 }
 
-.latest-products-pagination .swiper-pagination-bullet-active {
-    width: 24px;
+.latest-products-pagination
+.swiper-pagination-bullet-active {
+
+    width: 25px;
 
     border-radius: 20px;
 
+    background: #2563eb;
+
     opacity: 1;
+}
+
+
+/* =========================================================
+   EMPTY PRODUCTS
+========================================================= */
+
+.sharek-empty-icon {
+
+    width: 75px;
+    height: 75px;
+
+    margin: 0 auto;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    font-size: 34px;
+
+    border: 1px solid #dbeafe;
 }
 
 
@@ -228,22 +308,28 @@
 @media (max-width: 768px) {
 
     .latest-products .section-title h2 {
-        font-size: 25px;
+
+        font-size: 27px;
     }
 
     .latest-products .section-title p {
+
         font-size: 13px;
+
+        padding: 0 10px;
     }
 
     .latestProductsSwiper {
+
         padding:
             10px
-            10px
+            5px
             50px;
     }
 
     .latest-products-next,
     .latest-products-prev {
+
         display: none;
     }
 
@@ -257,14 +343,19 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     if (typeof Swiper === 'undefined') {
+
         console.error('Swiper JS غير محمل');
+
         return;
     }
+
 
     const productsSlider =
         document.querySelector('.latestProductsSwiper');
 
+
     if (!productsSlider) {
+
         return;
     }
 
@@ -382,4 +473,3 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 </script>
-```
