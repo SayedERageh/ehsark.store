@@ -267,10 +267,11 @@
                 {{-- =========================
                      CART
                 ========================== --}}
+
 <button
     type="button"
-    id="navbarCartButton"
-    class="cart-button"
+  id="cartToggle"
+      class="cart-button"
     title="عربة التسوق">
 
     <i class="bi bi-cart3"></i>

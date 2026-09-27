@@ -4,7 +4,6 @@ FLOATING CART - COMPLETE VERSION
 
 <div id="floatingCart" class="floating-cart" dir="rtl">
 
-```
 {{-- زر فتح السلة --}}
 <button
     type="button"
