@@ -2,7 +2,7 @@
 <section id="featured-services" class="featured-services section" dir="rtl">
 
   <div class="container text-center mb-5">
-    <h2 style="font-weight:700;">شارك استور</h2>
+    <h2 style="font-weight:700;">   شرق  استور</h2>
     <p>كل ما يحتاجه موبايلك من إكسسوارات ومستلزمات في مكان واحد</p>
   </div>
 

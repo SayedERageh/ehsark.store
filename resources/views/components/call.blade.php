@@ -6,78 +6,74 @@
         <div class="cta-box" data-aos="zoom-out">
 
             <div class="row align-items-center g-4">
+{{-- المحتوى --}}
 
-                {{-- المحتوى --}}
-                <div class="col-lg-8">
+<div class="col-lg-8">
 
-                    <div class="cta-content">
+```
+<div class="cta-content">
 
-                        <span class="cta-label">
-                            {{ $settings->site_name ?? 'أوتاد مصر' }}
-                        </span>
+    <span class="cta-label">
+        {{ $settings->site_name ?? 'شرق استور' }}
+    </span>
 
-                        <h2>
-                            كل ما تحتاجه من الأدوات الصحية ومستلزمات السباكة في مكان واحد
-                        </h2>
+    <h2>
+        كل ما تحتاجه لموبايلك من إكسسوارات ومستلزمات في مكان واحد
+    </h2>
 
-                        <p>
-                            {{ $settings->site_description ?? 'نوفر لكم أفضل الأدوات الصحية ومستلزمات السباكة وقطع الغيار الأصلية بأفضل الأسعار وجودة يمكنك الاعتماد عليها.' }}
-                        </p>
+    <p>
+        {{ $settings->site_description ?? 'نوفر لكم أفضل إكسسوارات ومستلزمات الموبايلات من شواحن وكابلات وسماعات وحافظات وغيرها، بجودة ممتازة وأسعار مناسبة.' }}
+    </p>
 
+    {{-- الأزرار --}}
+    <div class="cta-buttons">
 
-                        {{-- الأزرار --}}
-                        <div class="cta-buttons">
+        {{-- واتساب --}}
+        @if(!empty($settings?->whatsapp))
 
-                            {{-- واتساب --}}
-                            @if(!empty($settings?->whatsapp))
+            @php
+                $whatsapp = preg_replace(
+                    '/[^0-9]/',
+                    '',
+                    $settings->whatsapp
+                );
 
-                                @php
-                                    $whatsapp = preg_replace(
-                                        '/[^0-9]/',
-                                        '',
-                                        $settings->whatsapp
-                                    );
+                if (str_starts_with($whatsapp, '01')) {
+                    $whatsapp = '20' . substr($whatsapp, 1);
+                }
+            @endphp
 
-                                    if (str_starts_with($whatsapp, '01')) {
-                                        $whatsapp = '20' . substr($whatsapp, 1);
-                                    }
-                                @endphp
+            <a
+                href="https://wa.me/{{ $whatsapp }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="cta-whatsapp"
+            >
+                <i class="bi bi-whatsapp"></i>
+                تواصل عبر واتساب
+            </a>
 
-                                <a
-                                    href="https://wa.me/{{ $whatsapp }}"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="cta-whatsapp"
-                                >
-                                    <i class="bi bi-whatsapp"></i>
+        @endif
 
-                                    تواصل عبر واتساب
+        {{-- اتصال --}}
+        @if(!empty($settings?->phone))
 
-                                </a>
+            <a
+                href="tel:{{ preg_replace('/[^0-9+]/', '', $settings->phone) }}"
+                class="cta-phone"
+            >
+                <i class="bi bi-telephone-fill"></i>
+                اتصل بنا
+            </a>
 
-                            @endif
+        @endif
 
+    </div>
 
-                            {{-- اتصال --}}
-                            @if(!empty($settings?->phone))
+</div>
+```
 
-                                <a
-                                    href="tel:{{ preg_replace('/[^0-9+]/', '', $settings->phone) }}"
-                                    class="cta-phone"
-                                >
-                                    <i class="bi bi-telephone-fill"></i>
-
-                                    اتصل بنا
-
-                                </a>
-
-                            @endif
-
-                        </div>
-
-                    </div>
-
-                </div>
+</div>
 
 
                 {{-- الصورة --}}

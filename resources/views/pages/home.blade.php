@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'شارك استور')
+@section('title', ' شرق استور')
 
 @section('content')
 

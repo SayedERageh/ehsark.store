@@ -199,7 +199,7 @@
 
 <div class="category-page py-5">
 
-    <div class="container">
+    <div class="container"  dir="rtl">
 
         {{-- =====================================================
              CATEGORY HERO

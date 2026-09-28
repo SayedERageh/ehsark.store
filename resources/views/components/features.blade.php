@@ -10,7 +10,7 @@
             </span>
 
             <h2 class="sharek-section-title">
-                اكتشف <span>أقسام شارك استور</span>
+                اكتشف <span>أقسام    شرق  استور</span>
             </h2>
 
             <p class="sharek-section-subtitle">
