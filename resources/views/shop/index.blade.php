@@ -348,277 +348,277 @@
     }
 </style>
 
-
 <div class="shop-page py-5">
 
-    <div class="container">
+```
+<div class="container">
 
-        {{-- =====================================================
-             HERO
-        ====================================================== --}}
+    {{-- =====================================================
+         HERO
+    ====================================================== --}}
 
-        <div class="shop-hero mb-5">
+    <div class="shop-hero mb-5" dir="rtl">
 
-            <div class="row align-items-center">
+        <div class="row align-items-center">
 
-                <div class="col-lg-8">
+            <div class="col-lg-8">
 
-                    <div class="shop-hero-content">
+                <div class="shop-hero-content">
 
-                        <span class="shop-badge">
-                      <i class="bi bi-shop"></i>
-شارك استور
-</span>
+                    <span class="shop-badge">
+                        <i class="bi bi-shop"></i>
+                        شارك استور
+                    </span>
 
-<h1 class="mt-3">
-    كل ما تحتاجه من
-    <br>
-    إكسسوارات الموبايلات بجودة عالية
-</h1>
+                    <h1 class="mt-3">
+                        كل ما تحتاجه من
+                        <br>
+                        إكسسوارات الموبايلات بجودة عالية
+                    </h1>
 
-                        <p>
-                            اكتشف تشكيلة مميزة من الأدوات الصحية،
-                            الخلاطات، الدش، مستلزمات السباكة والوصلات
-                            بجودة عالية وأسعار تنافسية.
-                        </p>
+                    <p>
+                        اكتشف تشكيلة مميزة من إكسسوارات الموبايلات،
+                        الشواحن، الكابلات، السماعات، الجرابات
+                        ومستلزمات الهواتف بجودة عالية وأسعار تنافسية.
+                    </p>
 
-                        <form
-                            action="{{ route('shop.index') }}"
-                            method="GET"
-                            class="shop-search">
+                    <form
+                        action="{{ route('shop.index') }}"
+                        method="GET"
+                        class="shop-search">
 
-                            <input
-                                type="search"
-                                name="search"
-                                class="form-control"
-                                placeholder="ابحث عن خلاط، دش، حوض، وصلة..."
-                                value="{{ request('search') }}">
+                        <input
+                            type="search"
+                            name="search"
+                            class="form-control"
+                            placeholder="ابحث عن شاحن، جراب، سماعة، كابل..."
+                            value="{{ request('search') }}">
 
-                            <button type="submit">
-                                <i class="bi bi-search ms-1"></i>
-                                بحث
-                            </button>
+                        <button type="submit">
+                            <i class="bi bi-search ms-1"></i>
+                            بحث
+                        </button>
 
-                        </form>
-
-                    </div>
+                    </form>
 
                 </div>
 
-                <div class="col-lg-4 d-none d-lg-flex justify-content-center">
+            </div>
 
-                    <div class="shop-hero-icon">
-                        🚿
-                    </div>
+            <div class="col-lg-4 d-none d-lg-flex justify-content-center">
 
+                <div class="shop-hero-icon">
+                    📱
                 </div>
 
             </div>
 
         </div>
 
+    </div>
 
-        {{-- =====================================================
-             CATEGORIES
-        ====================================================== --}}
+
+    {{-- =====================================================
+         CATEGORIES
+    ====================================================== --}}
+
+    <section class="shop-section">
+
+        <div class="section-heading text-center">
+
+            <h2>
+                تصفح أقسام شارك استور
+            </h2>
+
+            <p>
+                اختر القسم الذي تبحث عنه للوصول إلى إكسسوارات الموبايلات بسهولة
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            @forelse($categories as $category)
+
+                <div class="col-6 col-md-4 col-lg-3">
+
+                    <a
+                        href="{{ route('shop.category', ['id' => $category->id]) }}"
+                        class="category-card">
+
+                        <div class="category-image">
+
+                            @if($category->image)
+
+                                <img
+                                    src="{{ asset('uploads/' . $category->image) }}"
+                                    alt="{{ $category->name }}"
+                                    loading="lazy">
+
+                            @else
+
+                                <i class="bi bi-phone category-icon"></i>
+
+                            @endif
+
+                        </div>
+
+                        <h5>
+                            {{ $category->name }}
+                        </h5>
+
+                        <span>
+                            {{ $category->products_count }} منتج
+                        </span>
+
+                    </a>
+
+                </div>
+
+            @empty
+
+                <div class="col-12">
+
+                    <div class="empty-shop">
+
+                        <i class="bi bi-grid"></i>
+
+                        <h5>
+                            لا توجد أقسام متاحة حالياً
+                        </h5>
+
+                        <p class="mb-0">
+                            سيتم إضافة أقسام الموبايلات والإكسسوارات قريباً.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            @endforelse
+
+        </div>
+
+    </section>
+
+
+    {{-- =====================================================
+         FEATURED PRODUCTS
+    ====================================================== --}}
+
+    @if($featuredProducts->count())
 
         <section class="shop-section">
 
-            <div class="section-heading text-center">
+            <div class="section-heading-inline">
 
-                <h2>
-                    تصفح أقسام شارك استور
-                </h2>
+                <div>
 
-                <p>
-                    اختر القسم الذي تبحث عنه للوصول إلى المنتجات بسهولة
-                </p>
+                    <h2>
+                        إكسسوارات مميزة
+                    </h2>
+
+                    <p>
+                        مجموعة مختارة من أفضل منتجات شارك استور للموبايلات
+                    </p>
+
+                </div>
+
+                <a
+                    href="{{ route('shop.index') }}"
+                    class="view-all">
+
+                    عرض جميع المنتجات
+                    <i class="bi bi-arrow-left"></i>
+
+                </a>
 
             </div>
 
 
-            <div class="row g-4">
+            <div class="products-section">
 
-                @forelse($categories as $category)
+                <div class="row g-4">
 
-                    <div class="col-6 col-md-4 col-lg-3">
+                    @foreach($featuredProducts as $product)
 
-                <a
- href="{{ route('shop.category', ['id' => $category->id]) }}"
-    class="category-card">
+                        <div class="col-6 col-md-6 col-lg-3">
 
-                            <div class="category-image">
-
-                                @if($category->image)
-
-                                    <img
-                                        src="{{ asset('uploads/' . $category->image) }}"
-                                        alt="{{ $category->name }}"
-                                        loading="lazy">
-
-                                @else
-
-                                    <i class="bi bi-droplet-half category-icon"></i>
-
-                                @endif
-
-                            </div>
-
-                            <h5>
-                                {{ $category->name }}
-                            </h5>
-
-                            <span>
-                                {{ $category->products_count }} منتج
-                            </span>
-
-                        </a>
-
-                    </div>
-
-                @empty
-
-                    <div class="col-12">
-
-                        <div class="empty-shop">
-
-                            <i class="bi bi-grid"></i>
-
-                            <h5>
-                                لا توجد أقسام متاحة حالياً
-                            </h5>
-
-                            <p class="mb-0">
-                                سيتم إضافة الأقسام قريباً.
-                            </p>
+                            @include('shop.partials.product-card')
 
                         </div>
 
-                    </div>
+                    @endforeach
 
-                @endforelse
+                </div>
 
             </div>
 
         </section>
 
+    @endif
 
-        {{-- =====================================================
-             FEATURED PRODUCTS
-        ====================================================== --}}
 
-        @if($featuredProducts->count())
+    {{-- =====================================================
+         LATEST PRODUCTS
+    ====================================================== --}}
 
-            <section class="shop-section">
+    @if($latestProducts->count())
 
-                <div class="section-heading-inline">
+        <section class="shop-section">
 
-                    <div>
+            <div class="section-heading-inline">
 
-                        <h2>
-                            منتجات مميزة
-                        </h2>
+                <div>
 
-                        <p>
-                            مجموعة مختارة من أفضل منتجات شارك استور
-                        </p>
+                    <h2>
+                        أحدث المنتجات
+                    </h2>
 
-                    </div>
-
-                    <a
-                        href="{{ route('shop.index') }}"
-                        class="view-all">
-
-                        عرض جميع المنتجات
-                        <i class="bi bi-arrow-left"></i>
-
-                    </a>
+                    <p>
+                        أحدث إكسسوارات ومنتجات الموبايلات المضافة إلى متجرنا
+                    </p>
 
                 </div>
 
+                <a
+                    href="{{ route('shop.index') }}"
+                    class="view-all">
 
-                <div class="products-section">
+                    اكتشف المنتجات
+                    <i class="bi bi-arrow-left"></i>
 
-                    <div class="row g-4">
+                </a>
 
-                        @foreach($featuredProducts as $product)
-
-                            <div class="col-6 col-md-6 col-lg-3">
-
-                                @include('shop.partials.product-card')
-
-                            </div>
-
-                        @endforeach
-
-                    </div>
-
-                </div>
-
-            </section>
-
-        @endif
+            </div>
 
 
-        {{-- =====================================================
-             LATEST PRODUCTS
-        ====================================================== --}}
+            <div class="products-section">
 
-        @if($latestProducts->count())
+                <div class="row g-4">
 
-            <section class="shop-section">
+                    @foreach($latestProducts as $product)
 
-                <div class="section-heading-inline">
+                        <div class="col-6 col-md-6 col-lg-3">
 
-                    <div>
+                            @include('shop.partials.product-card')
 
-                        <h2>
-                            أحدث المنتجات
-                        </h2>
+                        </div>
 
-                        <p>
-                            أحدث المنتجات المضافة إلى متجرنا
-                        </p>
-
-                    </div>
-
-                    <a
-                        href="{{ route('shop.index') }}"
-                        class="view-all">
-
-                        اكتشف المنتجات
-                        <i class="bi bi-arrow-left"></i>
-
-                    </a>
+                    @endforeach
 
                 </div>
 
+            </div>
 
-                <div class="products-section">
+        </section>
 
-                    <div class="row g-4">
+    @endif
 
-                        @foreach($latestProducts as $product)
-
-                            <div class="col-6 col-md-6 col-lg-3">
-
-                                @include('shop.partials.product-card')
-
-                            </div>
-
-                        @endforeach
-
-                    </div>
-
-                </div>
-
-            </section>
-
-        @endif
-
-    </div>
+</div>
+```
 
 </div>
 
 @endsection
-   

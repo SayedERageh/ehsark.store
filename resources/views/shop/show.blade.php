@@ -173,7 +173,7 @@
 </style>
 
 
-<div class="product-page py-5">
+<div class="product-page py-5" dir="rtl">
 
     <div class="container">
 

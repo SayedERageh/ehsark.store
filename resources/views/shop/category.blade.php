@@ -284,7 +284,7 @@
              PRODUCTS
         ====================================================== --}}
 
-        <div class="category-products">
+        <div class="category-products" dir="rtl">
 
             <div class="products-header">
 

@@ -30,7 +30,8 @@
                     <div class="sharek-category-card">
 
                         <!-- Image -->
-                        <a href="{{ route('shop.index', ['category' => $category->id]) }}"
+                        <a                                       href="{{ route('shop.category', $category->id) }}"
+
                            class="sharek-category-image">
 
                             @if($category->image)
@@ -89,7 +90,8 @@
                             <!-- Footer -->
                             <div class="sharek-category-footer">
 
-                                <a href="{{ route('shop.index', ['category' => $category->id]) }}"
+                                <a 
+                                       href="{{ route('shop.category', $category->id) }}"
                                    class="sharek-category-btn">
 
                                     <span>

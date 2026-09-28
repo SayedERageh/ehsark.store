@@ -6,9 +6,10 @@
 
   <main class="main">
 @include('components.carouselHero')
+@include('components.features')
    @include('sections.products-sections')
 @include('components.latest-products')
-@include('components.features')
+
 @include('components.call')
 @include('components.onfocus')
    @include('components.Featured')
