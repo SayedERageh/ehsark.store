@@ -1,7 +1,7 @@
 
 @extends('layouts.app')
 
-@section('title', $category->name . ' | أوتاد مصر')
+@section('title', $category->name . ' | شارك استور')
 
 @section('content')
 
@@ -245,7 +245,7 @@
 
                             <p>
                                 اكتشف جميع المنتجات المتوفرة في قسم
-                                {{ $category->name }} من متجر أوتاد مصر.
+                                {{ $category->name }} من متجر شارك استور.
                             </p>
 
                         @endif

@@ -1,6 +1,7 @@
+
 <nav class="navbar navbar-expand-lg bg-white sticky-top ecommerce-navbar" dir="rtl">
 
-    <div class="container">
+    <div class="container-fluid navbar-container">
 
         {{-- =========================
              BRAND
@@ -12,8 +13,8 @@
                 <i class="bi bi-bag-heart-fill"></i>
             </span>
 
-            <span>
-                {{ $settings->site_name ?? 'شارك استور ' }}
+            <span class="brand-name">
+                {{ $settings->site_name ?? 'شــارك استور ' }}
             </span>
 
         </a>
@@ -47,14 +48,15 @@
             {{-- =========================
                  LINKS
             ========================== --}}
-            <ul class="navbar-nav ecommerce-nav mx-lg-3">
-
+            <ul class="navbar-nav ecommerce-nav">
 
                 {{-- الرئيسية --}}
                 <li class="nav-item">
 
                     <a href="{{ route('home') }}"
                        class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">
+
+                        <i class="bi bi-house-door"></i>
 
                         الرئيسية
 
@@ -63,14 +65,48 @@
                 </li>
 
 
-                {{-- المنتجات --}}
-                <li class="nav-item dropdown">
+                {{-- من نحن --}}
+                <li class="nav-item">
+
+                    <a href="{{ route('about') }}"
+                       class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}">
+
+                        <i class="bi bi-info-circle"></i>
+
+                        من نحن
+
+                    </a>
+
+                </li>
+
+
+                {{-- الخدمات --}}
+                <li class="nav-item">
+
+                    <a href="{{ route('services.index') }}"
+                       class="nav-link {{ request()->routeIs('services.*') ? 'active' : '' }}">
+
+                        <i class="bi bi-tools"></i>
+
+                        الخدمات
+
+                    </a>
+
+                </li>
+
+
+                {{-- =========================
+                     المنتجات
+                ========================== --}}
+                <li class="nav-item dropdown products-dropdown">
 
                     <a href="{{ route('shop.index') }}"
                        class="nav-link dropdown-toggle {{ request()->routeIs('shop.*') ? 'active' : '' }}"
                        role="button"
                        data-bs-toggle="dropdown"
                        aria-expanded="false">
+
+                        <i class="bi bi-grid-3x3-gap"></i>
 
                         المنتجات
 
@@ -79,41 +115,53 @@
 
                     <ul class="dropdown-menu ecommerce-dropdown">
 
+                        {{-- جميع المنتجات --}}
                         <li>
 
                             <a class="dropdown-item"
                                href="{{ route('shop.index') }}">
 
-                                <i class="bi bi-grid-3x3-gap-fill"></i>
+                                <span class="dropdown-icon">
+                                    <i class="bi bi-grid-3x3-gap-fill"></i>
+                                </span>
 
-                                جميع المنتجات
+                                <span>
+                                    جميع المنتجات
+                                </span>
 
                             </a>
 
                         </li>
 
 
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-
-                        @foreach($productCategories ?? [] as $category)
+                        @if(!empty($productCategories) && $productCategories->count())
 
                             <li>
-
-                                <a class="dropdown-item"
-                                   href="{{ route('shop.category', $category->id) }}">
-
-                                    <i class="bi bi-chevron-left"></i>
-
-                                    {{ $category->name }}
-
-                                </a>
-
+                                <hr class="dropdown-divider">
                             </li>
 
-                        @endforeach
+                            @foreach($productCategories as $category)
+
+                                <li>
+
+                                    <a class="dropdown-item"
+                                       href="{{ route('shop.category', $category->id) }}">
+
+                                        <span class="dropdown-icon">
+                                            <i class="bi bi-chevron-left"></i>
+                                        </span>
+
+                                        <span>
+                                            {{ $category->name }}
+                                        </span>
+
+                                    </a>
+
+                                </li>
+
+                            @endforeach
+
+                        @endif
 
                     </ul>
 
@@ -125,6 +173,8 @@
 
                     <a href="{{ route('posts.index') }}"
                        class="nav-link {{ request()->routeIs('posts.*') ? 'active' : '' }}">
+
+                        <i class="bi bi-journal-text"></i>
 
                         المقالات
 
@@ -138,6 +188,8 @@
 
                     <a href="{{ route('contact') }}"
                        class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">
+
+                        <i class="bi bi-envelope"></i>
 
                         تواصل معنا
 
@@ -184,21 +236,31 @@
                      class="search-results">
 
                     <div class="search-loading d-none">
+
                         <i class="bi bi-arrow-repeat"></i>
+
                         جاري البحث...
+
                     </div>
+
 
                     <div class="search-empty d-none">
+
                         لم يتم العثور على منتجات
+
                     </div>
 
+
                     <div id="searchResultsList"></div>
+
 
                     <a href="{{ route('shop.index') }}"
                        id="showAllProducts"
                        class="show-all-products d-none">
 
-                        عرض جميع المنتجات
+                        <span>
+                            عرض جميع المنتجات
+                        </span>
 
                         <i class="bi bi-arrow-left"></i>
 
@@ -210,7 +272,7 @@
 
 
             {{-- =========================
-                 CONTACT
+                 ACTIONS
             ========================== --}}
             <div class="navbar-actions">
 
@@ -267,25 +329,7 @@
                 {{-- =========================
                      CART
                 ========================== --}}
-
-<button
-    type="button"
-  id="cartToggle"
-      class="cart-button"
-    title="عربة التسوق">
-
-    <i class="bi bi-cart3"></i>
-
-    <span class="cart-text">
-        العربة
-    </span>
-
-    <span id="navbarCartCount"
-          class="cart-count">
-        0
-    </span>
-
-</button>
+                    
 
             </div>
 
@@ -306,13 +350,28 @@
 
     min-height: 76px;
 
-    background: rgba(255,255,255,.97) !important;
+    background: rgba(255,255,255,.98) !important;
 
     border-bottom: 1px solid #eeeeee;
 
     box-shadow: 0 5px 25px rgba(0,0,0,.06);
 
     z-index: 99999;
+
+}
+
+
+.navbar-container {
+
+    width: 100%;
+
+    max-width: 1500px;
+
+    margin: auto;
+
+    padding-left: 25px;
+
+    padding-right: 25px;
 
 }
 
@@ -329,7 +388,7 @@
 
     gap: 9px;
 
-    font-size: 23px;
+    font-size: 21px;
 
     font-weight: 800;
 
@@ -339,14 +398,16 @@
 
     white-space: nowrap;
 
+    flex-shrink: 0;
+
 }
 
 
 .brand-icon {
 
-    width: 39px;
+    width: 40px;
 
-    height: 39px;
+    height: 40px;
 
     display: flex;
 
@@ -356,30 +417,78 @@
 
     background: #0d6efd;
 
-    color: white;
+    color: #fff;
 
     border-radius: 11px;
 
     font-size: 18px;
 
+    box-shadow: 0 5px 15px rgba(13,110,253,.20);
+
+}
+
+
+.brand-name {
+
+    line-height: 1;
+
 }
 
 
 /* =====================================================
-   NAV LINKS
+   NAVIGATION
 ===================================================== */
+
+.ecommerce-nav {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1px;
+
+    margin-right: 15px;
+
+    flex-shrink: 0;
+
+}
+
+
+.ecommerce-nav .nav-item {
+
+    white-space: nowrap;
+
+}
+
 
 .ecommerce-nav .nav-link {
 
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
     color: #252525;
 
-    font-size: 14px;
+    font-size: 13px;
 
     font-weight: 700;
 
-    padding: 27px 11px;
+    padding: 27px 9px;
 
     transition: .25s ease;
+
+    border-radius: 8px;
+
+}
+
+
+.ecommerce-nav .nav-link i {
+
+    font-size: 14px;
+
+    opacity: .85;
 
 }
 
@@ -393,17 +502,31 @@
 }
 
 
+.ecommerce-nav .nav-link.active i {
+
+    color: #0d6efd;
+
+}
+
+
 /* =====================================================
    DROPDOWN
 ===================================================== */
 
+.products-dropdown {
+
+    position: relative;
+
+}
+
+
 .ecommerce-dropdown {
 
-    min-width: 235px;
+    min-width: 245px;
 
     padding: 8px;
 
-    margin-top: 2px !important;
+    margin-top: 3px !important;
 
     border: 0;
 
@@ -420,24 +543,42 @@
 
     align-items: center;
 
-    gap: 9px;
+    gap: 10px;
 
     padding: 11px 13px;
 
     border-radius: 9px;
 
-    font-size: 14px;
+    font-size: 13px;
 
     font-weight: 600;
+
+    color: #333;
 
     transition: .2s ease;
 
 }
 
 
-.ecommerce-dropdown .dropdown-item i {
+.dropdown-icon {
+
+    width: 25px;
+
+    height: 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
 
     color: #0d6efd;
+
+    background: #eef5ff;
+
+    border-radius: 7px;
+
+    font-size: 11px;
 
 }
 
@@ -453,6 +594,15 @@
 }
 
 
+.ecommerce-dropdown .dropdown-divider {
+
+    margin: 7px 3px;
+
+    border-color: #eeeeee;
+
+}
+
+
 /* =====================================================
    SEARCH
 ===================================================== */
@@ -463,9 +613,11 @@
 
     flex: 1;
 
-    max-width: 310px;
+    max-width: 300px;
 
-    margin-right: 10px;
+    min-width: 180px;
+
+    margin-right: 15px;
 
 }
 
@@ -484,7 +636,7 @@
 
     border-radius: 13px;
 
-    padding: 0 12px;
+    padding: 0 11px;
 
     transition: .25s ease;
 
@@ -507,7 +659,9 @@
 
     color: #777;
 
-    font-size: 15px;
+    font-size: 14px;
+
+    flex-shrink: 0;
 
 }
 
@@ -524,9 +678,9 @@
 
     background: transparent;
 
-    padding: 0 10px;
+    padding: 0 9px;
 
-    font-size: 13px;
+    font-size: 12px;
 
     font-weight: 600;
 
@@ -564,6 +718,10 @@
 
     cursor: pointer;
 
+    flex-shrink: 0;
+
+    transition: .2s ease;
+
 }
 
 
@@ -588,7 +746,11 @@
 
     width: 100%;
 
-    min-width: 310px;
+    min-width: 300px;
+
+    max-height: 430px;
+
+    overflow-y: auto;
 
     background: #fff;
 
@@ -597,8 +759,6 @@
     box-shadow: 0 18px 45px rgba(0,0,0,.15);
 
     border: 1px solid #eeeeee;
-
-    overflow: hidden;
 
     display: none;
 
@@ -653,6 +813,8 @@
     object-fit: cover;
 
     background: #f3f3f3;
+
+    flex-shrink: 0;
 
 }
 
@@ -788,6 +950,8 @@
 
     margin-right: 10px;
 
+    flex-shrink: 0;
+
 }
 
 
@@ -862,9 +1026,13 @@
 
     align-items: center;
 
+    justify-content: center;
+
     gap: 7px;
 
     padding: 0 11px;
+
+    border: 0;
 
     border-radius: 11px;
 
@@ -872,11 +1040,11 @@
 
     color: #fff;
 
-    text-decoration: none;
-
-    font-size: 13px;
+    font-size: 12px;
 
     font-weight: 700;
+
+    cursor: pointer;
 
     transition: .25s ease;
 
@@ -921,7 +1089,7 @@
 
     border-radius: 50px;
 
-    font-size: 11px;
+    font-size: 10px;
 
     font-weight: 800;
 
@@ -937,6 +1105,8 @@
     border: 0;
 
     padding: 7px;
+
+    outline: none !important;
 
 }
 
@@ -966,27 +1136,59 @@
 
 
 /* =====================================================
-   MOBILE
+   LARGE TABLET
 ===================================================== */
 
-@media (max-width: 1199px) {
+@media (max-width: 1300px) {
 
-    .ecommerce-nav .nav-link {
+    .navbar-container {
 
-        padding-left: 8px;
+        padding-left: 18px;
 
-        padding-right: 8px;
+        padding-right: 18px;
 
     }
 
+
+    .ecommerce-brand {
+
+        font-size: 19px;
+
+    }
+
+
+    .ecommerce-nav {
+
+        margin-right: 8px;
+
+    }
+
+
+    .ecommerce-nav .nav-link {
+
+        padding-left: 6px;
+
+        padding-right: 6px;
+
+        font-size: 12px;
+
+    }
+
+
     .navbar-search-wrapper {
 
-        max-width: 240px;
+        max-width: 230px;
+
+        margin-right: 8px;
 
     }
 
 }
 
+
+/* =====================================================
+   TABLET / MOBILE
+===================================================== */
 
 @media (max-width: 991px) {
 
@@ -997,34 +1199,76 @@
     }
 
 
+    .navbar-container {
+
+        padding: 10px 15px;
+
+    }
+
+
     .ecommerce-brand {
 
-        font-size: 20px;
+        font-size: 19px;
 
     }
 
 
     .brand-icon {
 
-        width: 35px;
+        width: 36px;
 
-        height: 35px;
+        height: 36px;
+
+        font-size: 16px;
+
+    }
+
+
+    .ecommerce-toggler {
+
+        margin-right: auto;
+
+    }
+
+
+    #mainNavbar {
+
+        width: 100%;
+
+        padding-top: 10px;
 
     }
 
 
     .ecommerce-nav {
 
-        padding: 10px 0;
+        display: block;
+
+        width: 100%;
+
+        margin: 0;
+
+        padding: 5px 0;
+
+    }
+
+
+    .ecommerce-nav .nav-item {
+
+        width: 100%;
 
     }
 
 
     .ecommerce-nav .nav-link {
 
-        padding: 11px 8px;
+        width: 100%;
 
-        border-radius: 8px;
+        padding: 12px 13px;
+
+        border-radius: 9px;
+
+        justify-content: flex-start;
 
     }
 
@@ -1038,13 +1282,52 @@
     }
 
 
+    /* Dropdown */
+
+    .products-dropdown .dropdown-menu {
+
+        position: static !important;
+
+        width: 100%;
+
+        min-width: 0;
+
+        margin: 5px 0 8px !important;
+
+        box-shadow: none;
+
+        border: 1px solid #eeeeee;
+
+        border-radius: 12px;
+
+    }
+
+
+    .ecommerce-dropdown .dropdown-item {
+
+        padding: 10px 13px;
+
+    }
+
+
+    /* Search */
+
     .navbar-search-wrapper {
 
         width: 100%;
 
         max-width: none;
 
-        margin: 5px 0 12px;
+        min-width: 0;
+
+        margin: 8px 0 12px;
+
+    }
+
+
+    .navbar-search {
+
+        width: 100%;
 
     }
 
@@ -1058,11 +1341,15 @@
     }
 
 
+    /* Actions */
+
     .navbar-actions {
+
+        width: 100%;
 
         margin: 0;
 
-        padding-bottom: 15px;
+        padding: 5px 0 15px;
 
         justify-content: flex-start;
 
@@ -1073,31 +1360,80 @@
 
         flex: 1;
 
-        justify-content: center;
-
-        max-width: 150px;
-
-    }
-
-
-    .products-dropdown .dropdown-menu {
-
-        position: static !important;
-
-        width: 100%;
-
-        box-shadow: none;
-
-        border: 1px solid #eee;
-
-        margin-top: 5px !important;
+        max-width: 160px;
 
     }
 
 }
 
 
-@media (max-width: 450px) {
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 575px) {
+
+    .navbar-container {
+
+        padding-left: 12px;
+
+        padding-right: 12px;
+
+    }
+
+
+    .ecommerce-brand {
+
+        font-size: 17px;
+
+    }
+
+
+    .brand-icon {
+
+        width: 34px;
+
+        height: 34px;
+
+        border-radius: 9px;
+
+    }
+
+
+    .navbar-action {
+
+        width: 40px;
+
+        height: 40px;
+
+    }
+
+
+    .cart-button {
+
+        max-width: 140px;
+
+    }
+
+}
+
+
+/* =====================================================
+   VERY SMALL MOBILE
+===================================================== */
+
+@media (max-width: 400px) {
+
+    .brand-name {
+
+        max-width: 150px;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+
+    }
+
 
     .cart-text {
 
@@ -1108,9 +1444,13 @@
 
     .cart-button {
 
-        width: 45px;
+        width: 44px;
 
-        flex: 0 0 45px;
+        min-width: 44px;
+
+        max-width: 44px;
+
+        flex: 0 0 44px;
 
         padding: 0;
 
@@ -1139,11 +1479,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const form = document.getElementById('productSearchForm');
 
-    let searchTimer;
+    let searchTimer = null;
 
 
-    if (!input) return;
+    if (!input || !results || !form) {
+        return;
+    }
 
+
+    /* =====================================================
+       SEARCH
+    ===================================================== */
 
     input.addEventListener('input', function () {
 
@@ -1191,7 +1537,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
             )
-            .then(response => response.json())
+
+            .then(response => {
+
+                if (!response.ok) {
+                    throw new Error('Search request failed');
+                }
+
+                return response.json();
+
+            })
+
             .then(products => {
 
                 loading.classList.add('d-none');
@@ -1199,7 +1555,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 resultsList.innerHTML = '';
 
 
-                if (!products.length) {
+                if (!Array.isArray(products) || !products.length) {
+
+                    empty.textContent =
+                        'لم يتم العثور على منتجات';
 
                     empty.classList.remove('d-none');
 
@@ -1213,12 +1572,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 products.forEach(product => {
 
-                    let image = product.image
+                    const image = product.image
                         ? `/storage/${product.image}`
                         : '/images/default-product.png';
 
 
                     let price = '';
+
 
                     if (product.sale_price) {
 
@@ -1248,11 +1608,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <a href="${product.url}"
                            class="search-result-item">
 
-                            <img
-                                src="${image}"
-                                class="search-result-image"
-                                alt="${product.name}">
-
+                            
                             <div class="search-result-info">
 
                                 <div class="search-result-name">
@@ -1274,6 +1630,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
 
             })
+
             .catch(error => {
 
                 console.error(error);
@@ -1292,12 +1649,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    /*
-     * Submit
-     */
+    /* =====================================================
+       FORM SUBMIT
+    ===================================================== */
+
     form.addEventListener('submit', function (event) {
 
         const query = input.value.trim();
+
 
         if (!query) {
 
@@ -1310,9 +1669,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    /*
-     * Close when clicking outside
-     */
+    /* =====================================================
+       CLOSE SEARCH
+    ===================================================== */
+
     document.addEventListener('click', function (event) {
 
         if (!event.target.closest('.navbar-search-wrapper')) {
@@ -1324,9 +1684,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    /*
-     * Open again when focusing
-     */
+    /* =====================================================
+       FOCUS
+    ===================================================== */
+
     input.addEventListener('focus', function () {
 
         if (this.value.trim().length >= 2) {

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'اتصل بنا')
+@section('title', 'اتصل بنا:Sharq Store')
 
 @section('content')
 

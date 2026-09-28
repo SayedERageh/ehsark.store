@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'عربيتي | أوتاد مصر')
+@section('title', 'عربيتي | شارك استور')
 
 @section('content')
 
@@ -2271,7 +2271,7 @@ document.addEventListener(
                 */
 
                 let message =
-                    '*طلب جديد من موقع أوتاد مصر*%0A%0A';
+                    '*طلب جديد من موقع شارك استور*%0A%0A';
 
 
                 message +=

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'المتجر | أوتاد مصر')
+@section('title', 'المتجر | شارك استور')
 
 @section('content')
 
@@ -366,15 +366,15 @@
                     <div class="shop-hero-content">
 
                         <span class="shop-badge">
-                            <i class="bi bi-shop"></i>
-                            أوتاد مصر
-                        </span>
+                      <i class="bi bi-shop"></i>
+شارك استور
+</span>
 
-                        <h1 class="mt-3">
-                            كل ما تحتاجه من
-                            <br>
-                            الأدوات الصحية والسباكة
-                        </h1>
+<h1 class="mt-3">
+    كل ما تحتاجه من
+    <br>
+    إكسسوارات الموبايلات بجودة عالية
+</h1>
 
                         <p>
                             اكتشف تشكيلة مميزة من الأدوات الصحية،
@@ -427,7 +427,7 @@
             <div class="section-heading text-center">
 
                 <h2>
-                    تصفح أقسام أوتاد مصر
+                    تصفح أقسام شارك استور
                 </h2>
 
                 <p>
@@ -520,7 +520,7 @@
                         </h2>
 
                         <p>
-                            مجموعة مختارة من أفضل منتجات أوتاد مصر
+                            مجموعة مختارة من أفضل منتجات شارك استور
                         </p>
 
                     </div>

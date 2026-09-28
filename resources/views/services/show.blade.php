@@ -4,7 +4,7 @@
 
 @section('meta')
 <meta name="description" content="{{ $service->meta_description }}">
-<meta name="keywords" content="{{ $service->meta_keywords }}">
+<meta name="keywords" content="{{ is_array($service->meta_keywords) ? implode(', ', $service->meta_keywords) : $service->meta_keywords }}">
 @endsection
 
 @section('content')

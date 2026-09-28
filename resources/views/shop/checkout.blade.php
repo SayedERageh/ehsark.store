@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'إتمام الطلب | أوتاد مصر')
+@section('title', 'إتمام الطلب | شارك استور')
 
 @section('content')
 
@@ -331,7 +331,7 @@ document.addEventListener(
                     */
 
                     let message =
-                        '🛒 *طلب جديد - أوتاد مصر*%0A%0A';
+                        '🛒 *طلب جديد - شارك استور*%0A%0A';
 
 
                     message +=

@@ -375,8 +375,7 @@
 
                             <div class="product-description mb-4">
 
-                                {{ $product->description }}
-
+{!! $product->description !!}
                             </div>
 
                         @endif

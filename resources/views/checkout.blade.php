@@ -11,7 +11,7 @@
     >
 
     <title>
-        إتمام الطلب - أوتاد مصر
+        إتمام الطلب - شارك استور
     </title>
 
 
@@ -815,7 +815,7 @@ document.addEventListener(
         */
 
         const WHATSAPP_NUMBER =
-            '201111402160';
+            '201108775757';
 
 
         const CART_KEY =
@@ -1335,7 +1335,7 @@ document.addEventListener(
                 */
 
                 let message =
-                    '*🛒 طلب جديد من موقع أوتاد مصر*';
+                    '*🛒 طلب جديد من موقع شارك استور*';
 
 
                 message +=
@@ -1454,7 +1454,7 @@ document.addEventListener(
 
 
                 message +=
-                    'تم إرسال الطلب من موقع أوتاد مصر.';
+                    'تم إرسال الطلب من موقع شارك استور.';
 
 
                 /*

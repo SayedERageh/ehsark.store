@@ -21,6 +21,9 @@ SiteSettingSeeder::class,
     FaqSeeder::class,
     ProductCategorySeeder::class,
     ProductSeeder::class,
+    ServiceSeeder::class,
+    CategorySeeder::class,
+    ServiceSeeder::class,
 ]);
     
     }
